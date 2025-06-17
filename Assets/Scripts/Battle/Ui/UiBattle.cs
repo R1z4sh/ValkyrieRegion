@@ -7,7 +7,7 @@ public class UiBattle : MonoBehaviour
     public void Initialize()
     {
         TroopUnitData troopData = new TroopUnitData();
-        troopData.units = new Unit[5];
+        troopData.units = new Unit[3];
         summonItemRoot.initialize(troopData);
     }
 }
