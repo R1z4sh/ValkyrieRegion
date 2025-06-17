@@ -4,17 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameScene : SceneBase {
-
+    [SerializeField] private UiBattle uiBattle;
   public override void Initialize(SceneData data = null) {
-  }
-
-  // Start is called before the first frame update
-  void Start() {
-
-  }
-
-  // Update is called once per frame
-  void Update() {
-
-  }
+        uiBattle.Initialize();
+    }
 }
