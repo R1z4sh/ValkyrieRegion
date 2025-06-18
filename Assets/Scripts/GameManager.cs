@@ -3,6 +3,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
   void Start() {
-    GameSceneManager.Instance().ChangeSceneAsync(SceneName.Title);
+    GameSceneManager.Instance().ChangeScene(SceneName.Title);
   }
 }

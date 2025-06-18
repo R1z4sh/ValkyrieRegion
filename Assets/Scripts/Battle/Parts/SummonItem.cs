@@ -4,24 +4,16 @@ using UnityEngine.UI;
 public class SummonItem : MonoBehaviour
 {
     [SerializeField]private Button summonButton;
+    [SerializeField] private GameObject maskNode;
 
-    public void Initialize(Unit unit)
+    private UnitData unit;
+    public void Initialize(UnitData unit)
     {
-
+        this.unit = unit;   
+        summonButton.onClick.AddListener(onClickSummonButton);
     }
     private void  onClickSummonButton()
     {
-
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+         PlayerUnitController.Instance().SetUpSummon(unit.id);
     }
 }

@@ -1,16 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUnit : UnitBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    //TODO　キャラクターのアセットに置き換えるまでの識別用
+    [SerializeField] private Text unitName;
 
-    // Update is called once per frame
-    void Update()
+    public override void Initialize(int id,int lv)
     {
-        
+        base.Initialize(id, lv);
+        unitName.text = status.UnitName();
     }
 }

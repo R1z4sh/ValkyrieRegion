@@ -9,6 +9,6 @@ public class TitleScene : SceneBase {
 
   private void Update() {
     if (Input.GetMouseButtonDown(0))
-      GameSceneManager.Instance().ChangeSceneAsync(SceneName.Menu);
+      GameSceneManager.Instance().ChangeScene(SceneName.Menu);
   }
 }

@@ -1,0 +1,12 @@
+﻿{ "data":[
+{"id":"1","cost":"25","unitName":"ヴァルキリー","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"30","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"2","cost":"30","unitName":"フレイダー","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"25","attackCool":"2","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"3","cost":"25","unitName":"ヘルダル","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"20","maxAttackRange":"40","attackCool":"4","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"4","cost":"35","unitName":"スヴァリン","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"20","maxAttackRange":"40","attackCool":"4","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"5","cost":"20","unitName":"ヨトゥンマル","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"45","attackCool":"6","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"6","cost":"25","unitName":"ニーズロス","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"30","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"7","cost":"30","unitName":"ルーンヴィ","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"40","maxAttackRange":"60","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"8","cost":"35","unitName":"スカルヴィ","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"10","attackCool":"1.5","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"9","cost":"40","unitName":"ミストフィン","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"20","maxAttackRange":"30","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"10","cost":"35","unitName":"トールリク","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"40","maxAttackRange":"60","attackCool":"5","maxLv":"20","move":"15","action":"0","attackType":"0"}
+]}
