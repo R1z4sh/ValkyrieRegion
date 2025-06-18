@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class Unit { }
 
 public class TroopUnitData
 {
-    public Unit[] units = { };
+    public List<UnitData> units = new();
 }
 
 public class SummonItemRoot : MonoBehaviour
@@ -18,7 +18,7 @@ public class SummonItemRoot : MonoBehaviour
         {
             GameObject obj = Instantiate(summonItem, transform);
             obj.GetComponent<SummonItem>().Initialize(unit);
-            this.transform.parent = obj.transform;
+            this.transform.SetParent(obj.transform, false);
         }
     }
 }

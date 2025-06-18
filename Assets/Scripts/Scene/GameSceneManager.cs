@@ -15,7 +15,7 @@ public class GameSceneManager {
     return instance;
   }
 
-  public async Task ChangeSceneAsync(SceneName scene) {
+  public void  ChangeScene(SceneName scene) {
     DestroyScene(root.transform);
     string path = SceneDefine.ScenePath(scene);
     GameObject prefab = Resources.Load<GameObject>(path);

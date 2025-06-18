@@ -9,7 +9,7 @@ public class MenuScene : SceneBase {
   //public DoubleTapButton button;
 
   public override void Initialize(SceneData data = null) {
-    button.onClick.AddListener(() => GameSceneManager.Instance().ChangeSceneAsync(SceneName.Game));
+    button.onClick.AddListener(() => GameSceneManager.Instance().ChangeScene(SceneName.Game));
     //button.SetOnClickEvent(() => ShowPopup());
   }
 
