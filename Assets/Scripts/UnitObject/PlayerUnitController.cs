@@ -21,7 +21,7 @@ public class PlayerUnitController
         unitPrefab = Resources.Load<GameObject>("Prefabs/Battle/Unit/PlayerUnit");
         reader = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/ReaderRoot/Reader").GetComponent<Reader>();
         unitRoot = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/PlayerUnits");
-        point = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/SummonPoint").GetComponent<SummonPoint>();
+        point = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/BattleUi/SummonPoint").GetComponent<SummonPoint>();
         point.PointReset();
     }
  

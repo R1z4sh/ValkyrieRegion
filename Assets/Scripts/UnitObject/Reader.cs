@@ -8,7 +8,7 @@ public class Reader : MonoBehaviour
     private void Start()
     {
         direction.y = 1f;
-        joystick = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/Floating Joystick").GetComponent<FloatingJoystick>();
+        joystick = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/BattleUi/Floating Joystick").GetComponent<FloatingJoystick>();
         joystick.Initialize(SetDirection);
     }
 
