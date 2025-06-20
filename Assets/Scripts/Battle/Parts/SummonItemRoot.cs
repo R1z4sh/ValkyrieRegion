@@ -11,7 +11,6 @@ public class TroopUnitData
 public class SummonItemRoot : MonoBehaviour
 {
     [SerializeField] private GameObject summonItem;
-
     public void initialize(TroopUnitData troopData)
     {
         foreach (var unit in troopData.units)
