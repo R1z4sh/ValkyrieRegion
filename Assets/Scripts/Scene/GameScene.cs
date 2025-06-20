@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameScene : SceneBase {
-    [SerializeField] private UiBattle uiBattle;
+    [SerializeField] private BattleController battleController;
   public override void Initialize(SceneData data = null) {
-        uiBattle.Initialize();
+        battleController.Initialize();
     }
 }

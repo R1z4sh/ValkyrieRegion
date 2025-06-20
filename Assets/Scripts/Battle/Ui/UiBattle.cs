@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class UiBattle : MonoBehaviour
 {
+    [SerializeField]private FloatingJoystick joystick = null;
     [SerializeField] private SummonItemRoot summonItemRoot;
+    [SerializeField] private SummonPoint summonPoint;
 
-    public void Initialize()
+    public void Initialize(BattleController battleController)
     {
         TroopUnitData troopData = new();
         UnitMaster master = MasterManager.LoadMasterData<UnitMaster>("Master/M_Unit");
@@ -14,6 +16,17 @@ public class UiBattle : MonoBehaviour
             if (data == null) continue;
             troopData.units.Add(data);
         }
-        summonItemRoot.initialize(troopData);
+        summonItemRoot.Initialize(battleController, troopData);
+        summonPoint.Initialize();
+    }
+
+    public int GetSummonPoint()
+    {
+        return summonPoint.GetPoint();
+    }   
+
+    public FloatingJoystick GetJoyStick()
+    {
+        return joystick;
     }
 }
