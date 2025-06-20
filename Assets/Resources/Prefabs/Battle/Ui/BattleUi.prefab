@@ -128,7 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6341c91541b43b14b8eda1c4e6edfd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joystick: {fileID: 5806258170915567780}
   summonItemRoot: {fileID: 6731330080216236949}
+  summonPoint: {fileID: 952100534657536396}
 --- !u!1 &8795417323177877245
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +401,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ad9d142499a30948bcf7a49f533e6eb, type: 3}
+--- !u!114 &952100534657536396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1637648404349859037, guid: 4ad9d142499a30948bcf7a49f533e6eb, type: 3}
+  m_PrefabInstance: {fileID: 1985123062487115089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07975233c494c8a4fb41554fba2740e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7408373561010637683 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9026135494925594146, guid: 4ad9d142499a30948bcf7a49f533e6eb, type: 3}
@@ -562,3 +575,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
   m_PrefabInstance: {fileID: 2445963247267776165}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5806258170915567780 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+  m_PrefabInstance: {fileID: 2445963247267776165}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

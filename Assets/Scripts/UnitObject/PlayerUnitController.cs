@@ -1,47 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerUnitController
+public class PlayerUnitController:MonoBehaviour
 {
-    static PlayerUnitController instance = null;
-    public bool summonState = false;
-    private int summonUnitId = 0;
+    [SerializeField] GameObject unitPrefab = null;
     private List<PlayerUnit> alliveUnits = new();
-    private Reader reader = null;
-    private GameObject unitPrefab = null;
-    private GameObject unitRoot = null;
-    private SummonPoint point = null;
-    public static PlayerUnitController Instance(){
-        if (instance == null)instance =  new PlayerUnitController();
-        return instance;
+    private BattleController battleController = null;
+    private Vector3 direction = new Vector3(0f, -1f, 0);
+
+    public void SetDirection(Vector3 direction)
+    {
+        this.direction = direction;
     }
+
+    public void Initialize(BattleController controller)
+    {
+        battleController = controller;
+    }
+
 
     public PlayerUnitController()
     {
-        unitPrefab = Resources.Load<GameObject>("Prefabs/Battle/Unit/PlayerUnit");
-        reader = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/ReaderRoot/Reader").GetComponent<Reader>();
-        unitRoot = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/PlayerUnits");
-        point = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/BattleUi/SummonPoint").GetComponent<SummonPoint>();
-        point.PointReset();
     }
  
-    public void Summon(GameObject summonUnit) {
-        if (!summonState) return;
-        PlayerUnit comp = summonUnit.GetComponent<PlayerUnit>();
-        comp.Initialize(summonUnitId, 10);
-        summonState = false;
-        alliveUnits.Add(comp);
-    }
 
     public void Summon(int id,int cost){
-        if (cost > point.GetPoint()) return;
-        Vector3 pos = reader.GetReaderPos();
-        Vector3 summonPos = pos + reader.GetDirection().normalized * 50;
-        PlayerUnit summonUnit = Object.Instantiate(unitPrefab, pos, Quaternion.identity).GetComponent<PlayerUnit>();
-        summonUnit.transform.SetParent(unitRoot.transform);
+        if (cost >battleController.GetSummonPoint()) return;
+        Vector3 summonPos = Vector3.zero + direction.normalized * 50;
+        PlayerUnit summonUnit = Object.Instantiate(unitPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerUnit>();
+        summonUnit.transform.SetParent(this.transform);
         summonUnit.Initialize(id, 10);
         summonUnit.GetComponent<RectTransform>().anchoredPosition = summonPos;  
         alliveUnits.Add(summonUnit);
-        point.setPoint(cost);
+        EventManager.Trigger<int>("UseCost", cost);
     }
 }
