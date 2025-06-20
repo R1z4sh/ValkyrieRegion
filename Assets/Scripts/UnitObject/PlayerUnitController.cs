@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEditor;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class PlayerUnitController
 {
@@ -13,7 +10,7 @@ public class PlayerUnitController
     private Reader reader = null;
     private GameObject unitPrefab = null;
     private GameObject unitRoot = null;
-   
+    private SummonPoint point = null;
     public static PlayerUnitController Instance(){
         if (instance == null)instance =  new PlayerUnitController();
         return instance;
@@ -24,6 +21,8 @@ public class PlayerUnitController
         unitPrefab = Resources.Load<GameObject>("Prefabs/Battle/Unit/PlayerUnit");
         reader = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/ReaderRoot/Reader").GetComponent<Reader>();
         unitRoot = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/PlayerUnits");
+        point = GameObject.Find("SceneRoot/GameScene(Clone)/Canvas/SummonPoint").GetComponent<SummonPoint>();
+        point.PointReset();
     }
  
     public void Summon(GameObject summonUnit) {
@@ -34,7 +33,8 @@ public class PlayerUnitController
         alliveUnits.Add(comp);
     }
 
-    public void Summon(int id){
+    public void Summon(int id,int cost){
+        if (cost > point.GetPoint()) return;
         Vector3 pos = reader.GetReaderPos();
         Vector3 summonPos = pos + reader.GetDirection().normalized * 50;
         PlayerUnit summonUnit = Object.Instantiate(unitPrefab, pos, Quaternion.identity).GetComponent<PlayerUnit>();
@@ -42,7 +42,6 @@ public class PlayerUnitController
         summonUnit.Initialize(id, 10);
         summonUnit.GetComponent<RectTransform>().anchoredPosition = summonPos;  
         alliveUnits.Add(summonUnit);
-        Debug.Log(summonPos);  
-        Debug.Log(reader.GetDirection());  
+        point.setPoint(cost);
     }
 }
