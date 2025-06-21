@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class EnemyUnit : UnitBase
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public class EnemyUnit : UnitBase {
+  public override void Initialize(int id , int lv , int index) {
+    base.Initialize(id , lv , index);
+    string unitIdPath = string.Format("{0:D4}" , id);
+    unitImage.sprite = Resources.Load<Sprite>("Sprites/Battle/Unit/Enemy" + unitIdPath);
+  }
 }

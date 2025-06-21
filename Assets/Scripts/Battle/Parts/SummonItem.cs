@@ -14,7 +14,7 @@ public class SummonItem : MonoBehaviour
     public void Initialize(BattleController controller,UnitData unit){
         this.unit = unit;
         this.battleController = controller;
-        string unitIdPath = string.Format("{0:D2}", unit.id);
+        string unitIdPath = string.Format("{0:D4}", unit.id);
         unitImage.sprite = Resources.Load<Sprite>("Sprites/Battle/Unit/Unit" + unitIdPath);
         cost.text = unit.cost.ToString();
         unitName.text = unit.unitName;
