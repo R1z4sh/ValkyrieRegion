@@ -8,5 +8,9 @@
 {"id":"7","cost":"30","unitName":"ルーンヴィ","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"40","maxAttackRange":"60","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"},
 {"id":"8","cost":"35","unitName":"スカルヴィ","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"10","attackCool":"1.5","maxLv":"20","move":"15","action":"0","attackType":"0"},
 {"id":"9","cost":"40","unitName":"ミストフィン","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"20","maxAttackRange":"30","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"},
-{"id":"10","cost":"35","unitName":"トールリク","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"40","maxAttackRange":"60","attackCool":"5","maxLv":"20","move":"15","action":"0","attackType":"0"}
+{"id":"10","cost":"35","unitName":"トールリク","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"40","maxAttackRange":"60","attackCool":"5","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"5001","cost":"0","unitName":"スライム1","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"30","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"5002","cost":"0","unitName":"スライム2","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"30","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"5003","cost":"0","unitName":"スライム3","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"30","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"},
+{"id":"5004","cost":"0","unitName":"スライム4","minHp":"150","maxHp":"200","minOffense":"40","maxOffense":"60","minAttackRange":"0","maxAttackRange":"30","attackCool":"3","maxLv":"20","move":"15","action":"0","attackType":"0"}
 ]}

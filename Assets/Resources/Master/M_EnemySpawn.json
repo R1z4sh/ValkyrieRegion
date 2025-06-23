@@ -1,0 +1,12 @@
+﻿{ "data":[
+{"stageId":"100001","unitId":"5001","time":"5","count":"1","lv":"1"},
+{"stageId":"100001","unitId":"5003","time":"5","count":"1","lv":"1"},
+{"stageId":"100001","unitId":"5001","time":"8","count":"1","lv":"1"},
+{"stageId":"100001","unitId":"5002","time":"8","count":"2","lv":"1"},
+{"stageId":"100001","unitId":"5002","time":"8","count":"2","lv":"1"},
+{"stageId":"100001","unitId":"5001","time":"10","count":"2","lv":"1"},
+{"stageId":"100001","unitId":"5002","time":"15","count":"3","lv":"1"},
+{"stageId":"100001","unitId":"5001","time":"25","count":"3","lv":"1"},
+{"stageId":"100001","unitId":"5003","time":"25","count":"2","lv":"1"},
+{"stageId":"100001","unitId":"5001","time":"30","count":"1","lv":"1"}
+]}
