@@ -19,14 +19,14 @@ public class PlayerUnitController : MonoBehaviour {
   public void Summon(int id , int cost) {
     if (cost > battleController.GetSummonPoint())
       return;
-    Vector3 summonPos = Vector3.zero + direction.normalized * 50;
-    PlayerUnit summonUnit = Object.Instantiate(unitPrefab , Vector3.zero , Quaternion.identity).GetComponent<PlayerUnit>();
-    summonUnit.transform.SetParent(this.transform);
-    summonUnit.Initialize(id , 10 , alliveUnits.Count);
-    summonUnit.GetComponent<RectTransform>().anchoredPosition = summonPos;
-    alliveUnits.Add(alliveUnits.Count + 1 , summonUnit);
+        Vector3 summonPos = Vector3.zero + direction.normalized * 3;
+        PlayerUnit summonUnit = GameObject.Instantiate(unitPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerUnit>();
+        summonUnit.transform.SetParent(this.transform);
+        summonUnit.Initialize(id, 10, alliveUnits.Count);
+        summonUnit.transform.position = summonPos;
+        alliveUnits.Add(alliveUnits.Count + 1, summonUnit);
 
-    EventManager.Trigger<int>("UseCost" , cost);
+        EventManager.Trigger<int>("UseCost" , cost);
   }
 
   private void onDeadPlayerUnit(int index) {

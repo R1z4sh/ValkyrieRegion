@@ -131,6 +131,7 @@ MonoBehaviour:
   joystick: {fileID: 5806258170915567780}
   summonItemRoot: {fileID: 6731330080216236949}
   summonPoint: {fileID: 952100534657536396}
+  timer: {fileID: 0}
 --- !u!1 &8795417323177877245
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +236,7 @@ GameObject:
   - component: {fileID: 8790531275450106408}
   - component: {fileID: 2042029561172756140}
   - component: {fileID: 6731330080216236949}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SummonItemRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
