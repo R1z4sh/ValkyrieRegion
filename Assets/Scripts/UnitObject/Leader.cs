@@ -5,7 +5,7 @@ public class Leader : MonoBehaviour {
   private Action<Vector3> onChangeDirection = null;
   private FloatingJoystick joystick;
   private Vector3 direction = Vector3.zero;
-
+  private float moveSpeed = 2f;
   public void Initialize(FloatingJoystick joystick , Action<Vector3> onChangeDirection) {
     this.joystick = joystick;
     this.onChangeDirection = onChangeDirection;
@@ -13,6 +13,13 @@ public class Leader : MonoBehaviour {
     this.joystick.Initialize(SetDirection);
   }
 
+
+  private void Update() {
+    //左スティックでの縦移動
+    this.transform.position += this.transform.up * joystick.Vertical * moveSpeed * Time.deltaTime;
+    //左スティックでの横移動
+    this.transform.position += this.transform.right * joystick.Horizontal * moveSpeed * Time.deltaTime;
+  }
 
   private void SetDirection() {
     Vector3 dir = Vector3.up * joystick.Vertical + Vector3.right * joystick.Horizontal;
