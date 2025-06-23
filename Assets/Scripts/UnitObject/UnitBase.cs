@@ -36,7 +36,7 @@ public class UnitStatus {
 }
 
 public class UnitBase : MonoBehaviour {
-  [SerializeField] protected Image unitImage;
+  [SerializeField] protected SpriteRenderer unitImage;
   protected UnitStatus status = null;
   protected int index = -1;
   public virtual void Initialize(int unitId , int lv , int index) {

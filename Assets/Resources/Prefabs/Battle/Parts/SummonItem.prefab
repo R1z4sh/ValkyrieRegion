@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2259941259391476318}
   - component: {fileID: 3588481522269302127}
   - component: {fileID: 7613964042868990285}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5828688192252523766}
   - component: {fileID: 4458346468342783268}
   - component: {fileID: 1645639964604527868}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 6837197143715793881}
   - component: {fileID: 5759557908474747305}
   - component: {fileID: 8571284981247406606}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SummonItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 957348033191714278}
   - component: {fileID: 1457379632531759873}
   - component: {fileID: 2849475742152246957}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
