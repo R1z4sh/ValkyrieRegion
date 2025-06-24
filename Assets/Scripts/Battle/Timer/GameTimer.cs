@@ -9,7 +9,7 @@ public class GameTimer : MonoBehaviour {
   private EnemySpawnMaster enemySpawn;
   private List<SpawnData> spawnList = new();
 
-  private void Initialize(int stageId) {
+  public void Initialize(int stageId) {
     enemySpawn = MasterManager.LoadMasterData<EnemySpawnMaster>("Master/M_EnemySpawn");
     spawnList = enemySpawn.GetSpawnList(stageId);
   }

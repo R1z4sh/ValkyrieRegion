@@ -2,11 +2,11 @@ using System;
 using UnityEngine;
 
 public class Leader : MonoBehaviour {
-  private Action<Vector3> onChangeDirection = null;
+  private Action<Vector3, Vector3> onChangeDirection = null;
   private FloatingJoystick joystick;
   private Vector3 direction = Vector3.zero;
   private float moveSpeed = 2f;
-  public void Initialize(FloatingJoystick joystick , Action<Vector3> onChangeDirection) {
+  public void Initialize(FloatingJoystick joystick , Action<Vector3,Vector3> onChangeDirection) {
     this.joystick = joystick;
     this.onChangeDirection = onChangeDirection;
     direction.y = 1f;
@@ -15,8 +15,9 @@ public class Leader : MonoBehaviour {
 
 
   private void Update() {
-    //左スティックでの縦移動
-    this.transform.position += this.transform.up * joystick.Vertical * moveSpeed * Time.deltaTime;
+        this.GetComponent<SpriteRenderer>().flipX = joystick.Horizontal > 0;
+        //左スティックでの縦移動
+        this.transform.position += this.transform.up * joystick.Vertical * moveSpeed * Time.deltaTime;
     //左スティックでの横移動
     this.transform.position += this.transform.right * joystick.Horizontal * moveSpeed * Time.deltaTime;
   }
@@ -26,10 +27,6 @@ public class Leader : MonoBehaviour {
     if (dir == Vector3.zero)
       return;
     direction = dir;
-    onChangeDirection(direction);
-  }
-
-  public Vector3 GetReaderPos() {
-    return this.GetComponent<RectTransform>().anchoredPosition;
+    onChangeDirection(transform.position, direction);
   }
 }

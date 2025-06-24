@@ -6,8 +6,10 @@ public class PlayerUnitController : MonoBehaviour {
   private Dictionary<int , PlayerUnit> alliveUnits = new Dictionary<int , PlayerUnit>() { };
   private BattleController battleController = null;
   private Vector3 direction = new Vector3(0f , -1f , 0);
+  private Vector3 leaderPos;
 
-  public void SetDirection(Vector3 direction) {
+  public void LeaderData(Vector3 position,Vector3 direction) {
+    this.leaderPos = position;
     this.direction = direction;
   }
 
@@ -19,7 +21,7 @@ public class PlayerUnitController : MonoBehaviour {
   public void Summon(int id , int cost) {
     if (cost > battleController.GetSummonPoint())
       return;
-        Vector3 summonPos = Vector3.zero + direction.normalized * 3;
+        Vector3 summonPos = leaderPos + direction.normalized * 3;
         PlayerUnit summonUnit = GameObject.Instantiate(unitPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerUnit>();
         summonUnit.transform.SetParent(this.transform);
         summonUnit.Initialize(id, 10, alliveUnits.Count);
