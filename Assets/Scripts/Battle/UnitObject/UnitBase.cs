@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UnitStatus {
-  public UnitStatus(int cost , string unitName , int hp , int offense , float minAttackRange , float maxAttackRange , float attackCool , float move) {
+  public UnitStatus(int cost, string unitName, int hp, int offense, float minAttackRange, float maxAttackRange, float attackCool, float move) {
     this.cost = cost;
     this.unitName = unitName;
     this.hp = hp;
@@ -35,33 +35,88 @@ public class UnitStatus {
   private float move;
 }
 
-public class UnitBase : MonoBehaviour {
+enum UnitActionStatus {
+  None = 0,
+  Move = 1,
+  Attack = 2,
+  Dead = 4
+}
+
+public class UnitBase :MonoBehaviour {
   [SerializeField] protected SpriteRenderer unitImage;
   protected UnitStatus status = null;
-  protected int index = -1;
-  public virtual void Initialize(int unitId , int lv , int index) {
-    this.index = index;
+  protected int unitActionStatus = 0;
+
+  protected PlayerUnitController playerUnitController = null;
+  protected EnemyUnitController enemyUnitController = null;
+
+  public virtual void Initialize(
+    PlayerUnitController playerUnitController,
+    EnemyUnitController enemyUnitController,
+    int unitId, int lv) {
+    Debug.Log("UnitInitialize");
+    this.playerUnitController = playerUnitController;
+    this.enemyUnitController = enemyUnitController;
     UnitMaster unitMaster = MasterManager.LoadMasterData<UnitMaster>("Master/M_Unit");
     UnitData data = unitMaster.GetUnitData(unitId);
     status = new UnitStatus(
-        data.cost ,
-        data.unit_name ,
-        StatusCalcurion.calcCommonItem(data.min_hp , data.max_hp , data.max_lv , 10) ,
-            StatusCalcurion.calcCommonItem(data.min_offense , data.max_offense , data.max_lv , 10) ,
-            data.min_attack_range ,
-            data.max_attack_range ,
-            data.attack_cool ,
+        data.cost,
+        data.unit_name,
+        StatusCalcurion.calcCommonItem(data.min_hp, data.max_hp, data.max_lv, 10),
+            StatusCalcurion.calcCommonItem(data.min_offense, data.max_offense, data.max_lv, 10),
+            data.min_attack_range,
+            data.max_attack_range,
+            data.attack_cool,
             data.move
         );
+    this.unitActionStatus = (int)UnitActionStatus.Move;
   }
 
-  public void onDamage(int damage) {
-    if (status.OnDamage(damage))
-      onDead();
+  protected virtual void Move() {
+
   }
 
-  public void onDead() {
+  protected virtual void Attack() {
+
+  }
+
+  protected virtual void Dead() {
+
+  }
+
+  public void UnitActionControll() {
+    switch((UnitActionStatus)unitActionStatus) {
+      case UnitActionStatus.Move:
+        Move();
+        break;
+      case UnitActionStatus.Attack:
+        Attack();
+        break;
+      case UnitActionStatus.Dead:
+        Dead();
+        break;
+
+      case UnitActionStatus.None:
+        break;
+      default:
+        Debug.LogError("Unknown UnitActionStatus: " + unitActionStatus);
+        break;
+    }
+  }
+
+
+  private void Update() {
+    UnitActionControll();
+  }
+
+  public void OnDamage(int damage) {
+    if(status.OnDamage(damage))
+      OnDead();
+  }
+
+  public void OnDead() {
     //Ž€‚ñ‚¾‚±‚Æ‚ð’Ê’m
-    EventManager.Trigger<int>("onDeadUnit" , index);
+    EventManager.Trigger<UnitBase>("onDeadUnit", this);
+    unitActionStatus = (int)UnitActionStatus.Dead;
   }
 }

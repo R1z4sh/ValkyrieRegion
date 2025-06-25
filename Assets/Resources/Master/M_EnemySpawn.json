@@ -1,12 +1,12 @@
 ﻿{ "data":[
-{"stage_id":"100001","m_unit_id":"5001","time":"5","count":"1","lv":"1","position_x":"","position_y":""},
-{"stage_id":"100001","m_unit_id":"5003","time":"5","count":"1","lv":"1","position_x":"","position_y":""},
-{"stage_id":"100001","m_unit_id":"5001","time":"8","count":"1","lv":"1","position_x":"","position_y":""},
-{"stage_id":"100001","m_unit_id":"5002","time":"8","count":"2","lv":"1","position_x":"","position_y":""},
-{"stage_id":"100001","m_unit_id":"5002","time":"8","count":"2","lv":"1","position_x":"","position_y":""},
-{"stage_id":"100001","m_unit_id":"5001","time":"10","count":"2","lv":"1","position_x":"","position_y":""},
-{"stage_id":"100001","m_unit_id":"5002","time":"15","count":"3","lv":"1","position_x":"","position_y":""},
-{"stage_id":"100001","m_unit_id":"5001","time":"25","count":"3","lv":"1","position_x":"","position_y":""},
-{"stage_id":"100001","m_unit_id":"5003","time":"25","count":"2","lv":"1","position_x":"","position_y":""},
-{"stage_id":"100001","m_unit_id":"5001","time":"30","count":"1","lv":"1","position_x":"","position_y":""}
+{"stage_id":"100001","m_unit_id":"5001","time":"5","count":"1","lv":"1","position_x":"0","position_y":"0"},
+{"stage_id":"100001","m_unit_id":"5003","time":"5","count":"1","lv":"1","position_x":"0","position_y":"0"},
+{"stage_id":"100001","m_unit_id":"5001","time":"8","count":"1","lv":"1","position_x":"0","position_y":"0"},
+{"stage_id":"100001","m_unit_id":"5002","time":"8","count":"2","lv":"1","position_x":"0","position_y":"0"},
+{"stage_id":"100001","m_unit_id":"5002","time":"8","count":"2","lv":"1","position_x":"0","position_y":"0"},
+{"stage_id":"100001","m_unit_id":"5001","time":"10","count":"2","lv":"1","position_x":"0","position_y":"0"},
+{"stage_id":"100001","m_unit_id":"5002","time":"15","count":"3","lv":"1","position_x":"0","position_y":"0"},
+{"stage_id":"100001","m_unit_id":"5001","time":"25","count":"3","lv":"1","position_x":"0","position_y":"0"},
+{"stage_id":"100001","m_unit_id":"5003","time":"25","count":"2","lv":"1","position_x":"0","position_y":"0"},
+{"stage_id":"100001","m_unit_id":"5001","time":"30","count":"1","lv":"1","position_x":"0","position_y":"0"}
 ]}
