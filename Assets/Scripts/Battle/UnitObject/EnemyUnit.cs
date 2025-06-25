@@ -49,6 +49,7 @@ public class EnemyUnit :UnitBase {
     float range = float.MaxValue;
     foreach(PlayerUnit unit in playerUnitController.AlliveUnits()) {
       float distance = Vector3.Distance(unit.transform.position, transform.position);
+      if(distance > status.MaxAttackRange()) continue;
       if(distance < range) {
         range = distance;
         targetUnit = unit;
