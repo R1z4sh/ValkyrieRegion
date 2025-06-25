@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BattleController : MonoBehaviour {
+public class BattleController :MonoBehaviour {
   [SerializeField] private UiBattle uiBattle = null;
   [SerializeField] private PlayerUnitController playerUnitController = null;
   [SerializeField] private EnemyUnitController enemyUnitController = null;
@@ -8,20 +8,24 @@ public class BattleController : MonoBehaviour {
 
   public void Initialize() {
     playerUnitController.Initialize(this);
-        enemyUnitController.Initialize();
+    enemyUnitController.Initialize(this);
     uiBattle.Initialize(this);
-    leader.Initialize(uiBattle.GetJoyStick() , OnChangeLeaderDirection);
+    leader.Initialize(uiBattle.GetJoyStick(), OnChangeLeaderDirection);
   }
 
   public PlayerUnitController GetPlayerController() {
     return playerUnitController;
   }
 
+  public EnemyUnitController GetEnemyCountoller() {
+    return enemyUnitController;
+  }
+
   public int GetSummonPoint() {
     return uiBattle.GetSummonPoint();
   }
 
-  public void OnChangeLeaderDirection(Vector3 position,Vector3 direction) {
-    playerUnitController.LeaderData(position,direction);
+  public void OnChangeLeaderDirection(Vector3 position, Vector3 direction) {
+    playerUnitController.LeaderData(position, direction);
   }
 }
