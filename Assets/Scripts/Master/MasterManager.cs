@@ -6,7 +6,7 @@ public class MasterManager {
   public static TMaster LoadMasterData<TMaster>(string path) {
     // ResourcesからJSONテキストを読み込む
     TextAsset jsonText = Resources.Load<TextAsset>(path);
-    if (jsonText == null) {
+    if(jsonText == null) {
       Debug.LogError("JSONファイルが見つかりませんでした！");
       return default;
     }

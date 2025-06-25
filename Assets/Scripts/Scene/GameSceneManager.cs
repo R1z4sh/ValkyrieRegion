@@ -10,7 +10,7 @@ public class GameSceneManager {
   }
 
   public static GameSceneManager Instance() {
-    if (instance == null)
+    if(instance == null)
       instance = new GameSceneManager();
     return instance;
   }
@@ -19,20 +19,20 @@ public class GameSceneManager {
     DestroyScene(root.transform);
     string path = SceneDefine.ScenePath(scene);
     GameObject prefab = Resources.Load<GameObject>(path);
-    if (prefab == null) {
+    if(prefab == null) {
       Debug.LogError("指定のパスにプレファブが見つかりません" + path);
       return;
     }
 
 
-    GameObject sceneObj = Object.Instantiate(prefab , Vector3.zero , Quaternion.identity);
+    GameObject sceneObj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
     sceneObj.transform.parent = root.transform;
     sceneObj.GetComponent<SceneBase>().Initialize();
 
   }
 
   private void DestroyScene(Transform root) {
-    foreach (Transform child in root) {
+    foreach(Transform child in root) {
       child.GetComponent<SceneBase>().Fainalize();
       Object.Destroy(child.gameObject);
     }
