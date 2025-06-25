@@ -43,10 +43,11 @@ enum UnitActionStatus {
 }
 
 public class UnitBase :MonoBehaviour {
+  public int hp = 0;
   [SerializeField] protected SpriteRenderer unitImage;
   protected UnitStatus status = null;
   protected int unitActionStatus = 0;
-
+  protected float attackCoolTime = 0f;
   protected PlayerUnitController playerUnitController = null;
   protected EnemyUnitController enemyUnitController = null;
 
@@ -62,8 +63,8 @@ public class UnitBase :MonoBehaviour {
     status = new UnitStatus(
         data.cost,
         data.unit_name,
-        StatusCalcurion.calcCommonItem(data.min_hp, data.max_hp, data.max_lv, 10),
-            StatusCalcurion.calcCommonItem(data.min_offense, data.max_offense, data.max_lv, 10),
+        StatusCalcurion.calcCommonItem(data.min_hp, data.max_hp, data.max_lv, lv),
+            StatusCalcurion.calcCommonItem(data.min_offense, data.max_offense, data.max_lv, lv),
             data.min_attack_range,
             data.max_attack_range,
             data.attack_cool,
@@ -81,7 +82,8 @@ public class UnitBase :MonoBehaviour {
   }
 
   protected virtual void Dead() {
-
+    this.transform.parent = null;
+    Destroy(this.gameObject);
   }
 
   public void UnitActionControll() {
@@ -106,17 +108,17 @@ public class UnitBase :MonoBehaviour {
 
 
   private void Update() {
+    hp = status.Hp();
     UnitActionControll();
+    attackCoolTime = Mathf.Max(attackCoolTime - Time.deltaTime, 0);
+  }
+
+  public bool IsDead() {
+    return status.Hp() <= 0;
   }
 
   public void OnDamage(int damage) {
     if(status.OnDamage(damage))
-      OnDead();
-  }
-
-  public void OnDead() {
-    //Ž€‚ñ‚¾‚±‚Æ‚ð’Ê’m
-    EventManager.Trigger<UnitBase>("onDeadUnit", this);
-    unitActionStatus = (int)UnitActionStatus.Dead;
+      this.unitActionStatus = (int)UnitActionStatus.Dead;
   }
 }

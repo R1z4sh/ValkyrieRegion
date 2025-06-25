@@ -19,7 +19,7 @@ public class PlayerUnitController :MonoBehaviour {
 
   public void Initialize(BattleController controller) {
     battleController = controller;
-    EventManager.Subscribe<PlayerUnit>("onDeadUnit", onDeadPlayerUnit);
+    EventManager.Subscribe<PlayerUnit>("PlayerUnitDead", onDeadPlayerUnit);
   }
 
   public void Summon(int id, int cost) {
@@ -35,10 +35,10 @@ public class PlayerUnitController :MonoBehaviour {
   }
 
   private void onDeadPlayerUnit(PlayerUnit unit) {
+    if(alliveUnits.Count <= 0 || !alliveUnits.Contains(unit)) return;
     PlayerUnit deadUnit = alliveUnits[alliveUnits.IndexOf(unit)];
     if(deadUnit == null)
       return;
     alliveUnits.Remove(unit);
-    Destroy(deadUnit);
   }
 }
