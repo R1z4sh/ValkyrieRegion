@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuScene : SceneBase {
+public class MenuScene :SceneBase {
 
   public Button button;
   //public DoubleTapButton button;

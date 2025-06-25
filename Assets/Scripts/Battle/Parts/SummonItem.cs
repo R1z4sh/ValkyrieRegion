@@ -14,14 +14,14 @@ public class SummonItem : MonoBehaviour
     public void Initialize(BattleController controller,UnitData unit){
         this.unit = unit;
         this.battleController = controller;
-        string unitIdPath = string.Format("{0:D4}", unit.id);
+        string unitIdPath = string.Format("{0:D4}", unit.m_unit_id);
         unitImage.sprite = Resources.Load<Sprite>("Sprites/Battle/Unit/Unit" + unitIdPath);
         cost.text = unit.cost.ToString();
-        unitName.text = unit.unitName;
+        unitName.text = unit.unit_name;
         summonButton.onClick.AddListener(onClickSummonButton);
     }
 
     private void  onClickSummonButton(){
-        battleController.GetPlayerController().Summon(unit.id,unit.cost);
+        battleController.GetPlayerController().Summon(unit.m_unit_id,unit.cost);
     }
 }

@@ -8,6 +8,7 @@ public class UiBattle : MonoBehaviour {
 
   public void Initialize(BattleController battleController) {
     TroopUnitData troopData = new();
+    timer.Initialize(100001);
     UnitMaster master = MasterManager.LoadMasterData<UnitMaster>("Master/M_Unit");
     for (int i = 0; i < 5; ++i) {
       UnitData data = master.GetUnitData(i + 1);

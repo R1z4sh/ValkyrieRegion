@@ -45,12 +45,12 @@ public class UnitBase : MonoBehaviour {
     UnitData data = unitMaster.GetUnitData(unitId);
     status = new UnitStatus(
         data.cost ,
-        data.unitName ,
-        StatusCalcurion.calcCommonItem(data.minHp , data.maxHp , data.maxLv , 10) ,
-            StatusCalcurion.calcCommonItem(data.minOffense , data.maxOffense , data.maxLv , 10) ,
-            data.minAttackRange ,
-            data.maxAttackRange ,
-            data.attackCool ,
+        data.unit_name ,
+        StatusCalcurion.calcCommonItem(data.min_hp , data.max_hp , data.max_lv , 10) ,
+            StatusCalcurion.calcCommonItem(data.min_offense , data.max_offense , data.max_lv , 10) ,
+            data.min_attack_range ,
+            data.max_attack_range ,
+            data.attack_cool ,
             data.move
         );
   }

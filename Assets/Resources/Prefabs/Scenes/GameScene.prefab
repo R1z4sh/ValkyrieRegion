@@ -71,7 +71,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467974180608554459}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
@@ -291,7 +291,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae20dc03e1a8aef42914ba4a81e8333a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 698970145253555918, guid: f8cc9cdf398f6f4488392e01c56e5e56, type: 3}
+  mainCamera: {fileID: 6471667531699862663}
+  unitPrefab: {fileID: 5807224334181662186, guid: 4be97e34f3f2617468447cc4fec30653, type: 3}
+  bg: {fileID: 639600307366212723}
+  spawnRadius: 10
+  maxAttempts: 20
 --- !u!1 &2768452805384911380
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,6 +832,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7532983138471741543, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 7751198866206763995}
     - target: {fileID: 8514886005141978263, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
       propertyPath: m_Name
       value: BattleUi
@@ -863,6 +871,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6341c91541b43b14b8eda1c4e6edfd9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7751198866206763995 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4384721904886203107, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+  m_PrefabInstance: {fileID: 6289385844020603192}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1500e0db3e031c4f9bd494e9ecaee20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8362912120124010325 stripped

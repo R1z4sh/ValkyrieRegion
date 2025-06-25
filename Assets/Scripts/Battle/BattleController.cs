@@ -8,7 +8,7 @@ public class BattleController : MonoBehaviour {
 
   public void Initialize() {
     playerUnitController.Initialize(this);
-  
+        enemyUnitController.Initialize();
     uiBattle.Initialize(this);
     leader.Initialize(uiBattle.GetJoyStick() , OnChangeLeaderDirection);
   }
@@ -21,7 +21,7 @@ public class BattleController : MonoBehaviour {
     return uiBattle.GetSummonPoint();
   }
 
-  public void OnChangeLeaderDirection(Vector3 direction) {
-    playerUnitController.SetDirection(direction);
+  public void OnChangeLeaderDirection(Vector3 position,Vector3 direction) {
+    playerUnitController.LeaderData(position,direction);
   }
 }
