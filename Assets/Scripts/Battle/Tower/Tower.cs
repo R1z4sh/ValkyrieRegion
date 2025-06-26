@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Tower :MonoBehaviour {
@@ -11,6 +12,12 @@ public class Tower :MonoBehaviour {
 
   public static Tower Instance() {
     return instance;
+  }
+
+  private IEnumerator Heal(
+    ) {
+    yield return new WaitForSeconds(5f);
+    hp += 25;
   }
 
   public void OnDamage(int damage) {

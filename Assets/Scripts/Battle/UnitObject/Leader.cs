@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 public class Leader :MonoBehaviour {
+  private bool isStop = false;
   private Action<Vector3, Vector3> onChangeDirection = null;
   private FloatingJoystick joystick;
   private Vector3 direction = Vector3.zero;
@@ -11,10 +12,17 @@ public class Leader :MonoBehaviour {
     this.onChangeDirection = onChangeDirection;
     direction.y = 1f;
     this.joystick.Initialize(SetDirection);
+    EventManager.Subscribe<bool>("gameStop", Stop);
   }
 
 
+  private void Stop(bool flag) {
+    isStop = flag;
+  }
+
   private void Update() {
+    joystick.enabled = !isStop;
+    if(isStop) return;
     this.GetComponent<SpriteRenderer>().flipX = joystick.Horizontal > 0;
     //左スティックでの縦移動
     this.transform.position += this.transform.up * joystick.Vertical * moveSpeed * Time.deltaTime;
