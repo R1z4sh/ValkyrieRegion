@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 
@@ -15,6 +16,7 @@ public class EnemyUnitController :MonoBehaviour {
   public void Initialize(BattleController controller) {
     this.battleController = controller;
     EventManager.Subscribe<SpawnData>("enemyPop", SpawnEnemy);
+    EventManager.Subscribe<EnemyUnit>("enemyUnitDead", onDeadEnemyUnit);
   }
 
   public List<EnemyUnit> AlliveUnits() {
@@ -53,5 +55,13 @@ public class EnemyUnitController :MonoBehaviour {
   Vector3 GetRandomWorldPosition() {
     Vector2 randomCircle = UnityEngine.Random.insideUnitCircle.normalized * spawnRadius;
     return (Vector3)randomCircle;
+  }
+
+  private void onDeadEnemyUnit(EnemyUnit unit) {
+    if(alliveUnits.Count <= 0 || !alliveUnits.Contains(unit)) return;
+    EnemyUnit deadUnit = alliveUnits[alliveUnits.IndexOf(unit)];
+    if(deadUnit == null)
+      return;
+    alliveUnits.Remove(unit);
   }
 }

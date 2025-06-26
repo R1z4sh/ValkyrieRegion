@@ -8,13 +8,19 @@ public class GameTimer :MonoBehaviour {
   [SerializeField] private Text timerCount;
   private float timer = 0f;
 
+  private bool isStop = false;
   private EnemySpawnMaster enemySpawn;
   private List<SpawnData> spawnList = new();
+
+  private void Stop(bool flag) {
+    isStop = flag;
+  }
 
   public void Initialize(int stageId) {
     enemySpawn = MasterManager.LoadMasterData<EnemySpawnMaster>("Master/M_EnemySpawn");
     spawnList = enemySpawn.GetSpawnList(stageId);
     Schedule();
+    EventManager.Subscribe<bool>("gameStop", Stop);
   }
 
   private void Schedule() {
@@ -24,14 +30,26 @@ public class GameTimer :MonoBehaviour {
   }
 
   private void Update() {
+    if(isStop) return;
     timer += Time.deltaTime;
     SetTimrCount();
   }
 
   private IEnumerator SpawnTrigger(SpawnData data, float delay) {
-    yield return new WaitForSeconds(delay);
+    //yield return new WaitForSeconds(delay);
+    //for(int i = 0; i < data.count; ++i) {
+    //  EventManager.Trigger("enemyPop", spawnList[i]);
+    //}
+    float elapsed = 0f;
+    while(elapsed < delay) {
+      if(!isStop) {
+        elapsed += Time.deltaTime;
+      }
+      yield return null;
+    }
+
     for(int i = 0; i < data.count; ++i) {
-      EventManager.Trigger("enemyPop", spawnList[i]);
+      EventManager.Trigger("enemyPop", data); // © spawnList[i] ¨ data ‚ÉC³iƒoƒOC³j
     }
   }
 

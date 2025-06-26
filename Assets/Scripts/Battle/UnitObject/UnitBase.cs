@@ -50,12 +50,20 @@ public class UnitBase :MonoBehaviour {
   protected float attackCoolTime = 0f;
   protected PlayerUnitController playerUnitController = null;
   protected EnemyUnitController enemyUnitController = null;
+  protected UnitActionFlowController actionFlowController = null;
+
+  public bool IsDead() {
+    return status == null || status.Hp() <= 0;
+  }
+
+  public UnitStatus Status() { return status; }
+  public bool IsAttackRange(float distance) { return status.MinAttackRange() < distance && status.MaxAttackRange() > distance; }
 
   public virtual void Initialize(
     PlayerUnitController playerUnitController,
     EnemyUnitController enemyUnitController,
     int unitId, int lv) {
-    Debug.Log("UnitInitialize");
+    this.actionFlowController = new UnitActionFlowController(this, playerUnitController, enemyUnitController);
     this.playerUnitController = playerUnitController;
     this.enemyUnitController = enemyUnitController;
     UnitMaster unitMaster = MasterManager.LoadMasterData<UnitMaster>("Master/M_Unit");
@@ -73,52 +81,13 @@ public class UnitBase :MonoBehaviour {
     this.unitActionStatus = (int)UnitActionStatus.Move;
   }
 
-  protected virtual void Move() {
-
-  }
-
-  protected virtual void Attack() {
-
-  }
-
-  protected virtual void Dead() {
-    this.transform.parent = null;
-    Destroy(this.gameObject);
-  }
-
-  public void UnitActionControll() {
-    switch((UnitActionStatus)unitActionStatus) {
-      case UnitActionStatus.Move:
-        Move();
-        break;
-      case UnitActionStatus.Attack:
-        Attack();
-        break;
-      case UnitActionStatus.Dead:
-        Dead();
-        break;
-
-      case UnitActionStatus.None:
-        break;
-      default:
-        Debug.LogError("Unknown UnitActionStatus: " + unitActionStatus);
-        break;
-    }
-  }
-
-
   private void Update() {
     hp = status.Hp();
-    UnitActionControll();
-    attackCoolTime = Mathf.Max(attackCoolTime - Time.deltaTime, 0);
-  }
-
-  public bool IsDead() {
-    return status.Hp() <= 0;
   }
 
   public void OnDamage(int damage) {
-    if(status.OnDamage(damage))
-      this.unitActionStatus = (int)UnitActionStatus.Dead;
+    if(status.OnDamage(damage)) OnDead();
   }
+
+  protected virtual void OnDead() { }
 }
