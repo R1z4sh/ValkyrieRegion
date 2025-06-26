@@ -90,4 +90,8 @@ public class UnitBase :MonoBehaviour {
   }
 
   protected virtual void OnDead() { }
+
+  private void OnDestroy() {
+    Destroy(transform.GetChild(0).gameObject);
+  }
 }

@@ -32,4 +32,8 @@ public class FlowBase :MonoBehaviour {
   private void Update() {
 
   }
+
+  private void OnDestroy() {
+    EventManager.Unsubscribe<bool>("gameStop", Stop);
+  }
 }

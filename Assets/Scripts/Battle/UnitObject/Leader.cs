@@ -37,4 +37,8 @@ public class Leader :MonoBehaviour {
     direction = dir;
     onChangeDirection(transform.position, direction);
   }
+
+  private void OnDestroy() {
+    EventManager.Unsubscribe<bool>("gameStop", Stop);
+  }
 }

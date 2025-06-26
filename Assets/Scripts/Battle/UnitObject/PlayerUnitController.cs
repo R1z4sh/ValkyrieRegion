@@ -41,4 +41,14 @@ public class PlayerUnitController :MonoBehaviour {
       return;
     alliveUnits.Remove(unit);
   }
+
+  private void OnDestroy() {
+    EventManager.Unsubscribe<PlayerUnit>("PlayerUnitDead", onDeadPlayerUnit);
+    foreach(var unit in alliveUnits) {
+      if(unit != null) {
+        Destroy(unit.gameObject);
+      }
+    }
+    alliveUnits.Clear();
+  }
 }

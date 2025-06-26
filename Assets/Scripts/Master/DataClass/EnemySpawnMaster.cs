@@ -9,6 +9,7 @@ public class SpawnData {
   public int lv;
   public float position_x;
   public float position_y;
+  public int end;
 }
 
 [Serializable]

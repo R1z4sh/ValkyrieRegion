@@ -1,6 +1,13 @@
 using UnityEngine;
 
 public class EnemyUnit :UnitBase {
+
+  private bool lastUnit = false;
+
+  public void SetLastUnit(bool flag) {
+    lastUnit = flag;
+  }
+
   public override void Initialize(
    PlayerUnitController playerUnitController,
    EnemyUnitController enemyUnitController,
@@ -14,5 +21,6 @@ public class EnemyUnit :UnitBase {
 
   protected override void OnDead() {
     EventManager.Trigger<EnemyUnit>("EnemyUnitDead", this);
+    if(lastUnit) EventManager.Trigger<bool>("gameClear", true);
   }
 }
