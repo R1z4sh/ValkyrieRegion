@@ -14,7 +14,7 @@ public class BattleController :MonoBehaviour {
     playerUnitController.Initialize(this);
     enemyUnitController.Initialize(this);
     uiBattle.Initialize(this);
-    pauseButton.onClick.AddListener(GameStop);
+    pauseButton.onClick.AddListener(ShowPopup);
     leader.Initialize(uiBattle.GetJoyStick(), OnChangeLeaderDirection);
   }
 
@@ -30,12 +30,14 @@ public class BattleController :MonoBehaviour {
     return uiBattle.GetSummonPoint();
   }
 
-  private void GameStop() {
-    isStop = !isStop;
-    EventManager.Trigger<bool>("gameStop", isStop);
-  }
-
   public void OnChangeLeaderDirection(Vector3 position, Vector3 direction) {
     playerUnitController.LeaderData(position, direction);
   }
+
+  private async void ShowPopup() {
+    EventManager.Trigger<bool>("gameStop", true);
+    GameObject prefab = Resources.Load<GameObject>("Prefabs/Battle/Popup/PopupOption");
+    await PopupManager.Instance().ShowPopup<int, bool, PopupOption>(0, prefab);
+  }
+
 }
