@@ -58,4 +58,14 @@ public class GameTimer :MonoBehaviour {
     int minutes = Mathf.FloorToInt((timer / 60) % 60);
     timerCount.text = string.Format("{0:D2}:{1:D2}", minutes, seconds);
   }
+
+  private void OnDestroy() {
+    EventManager.Unsubscribe<bool>("gameStop", Stop);
+    foreach(SpawnData data in spawnList) {
+      if(data != null) {
+        StopAllCoroutines();
+      }
+    }
+    spawnList.Clear();
+  }
 }

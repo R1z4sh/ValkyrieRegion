@@ -16,6 +16,8 @@ public class BattleController :MonoBehaviour {
     uiBattle.Initialize(this);
     pauseButton.onClick.AddListener(ShowPopup);
     leader.Initialize(uiBattle.GetJoyStick(), OnChangeLeaderDirection);
+    EventManager.Subscribe<bool>("gameClear", GameClear);
+    EventManager.Subscribe<bool>("gameOver", GameOver);
   }
 
   public PlayerUnitController GetPlayerController() {
@@ -34,10 +36,36 @@ public class BattleController :MonoBehaviour {
     playerUnitController.LeaderData(position, direction);
   }
 
+  private async void GameClear(bool none) {
+    EventManager.Trigger<bool>("gameStop", true);
+    GameObject prefab = Resources.Load<GameObject>("Prefabs/Battle/Popup/PopupGameClear");
+    await PopupManager.Instance().ShowPopup<int, bool, PopupGameClear>(0, prefab);
+    GameSceneManager.Instance().ChangeScene(SceneName.Menu);
+  }
+
+  private async void GameOver(bool nooe) {
+    EventManager.Trigger<bool>("gameStop", true);
+    GameObject prefab = Resources.Load<GameObject>("Prefabs/Battle/Popup/PopupGameOver");
+    await PopupManager.Instance().ShowPopup<int, bool, PopupGameOver>(0, prefab);
+    GameSceneManager.Instance().ChangeScene(SceneName.Menu);
+
+  }
+
   private async void ShowPopup() {
     EventManager.Trigger<bool>("gameStop", true);
     GameObject prefab = Resources.Load<GameObject>("Prefabs/Battle/Popup/PopupOption");
     await PopupManager.Instance().ShowPopup<int, bool, PopupOption>(0, prefab);
   }
 
+
+
+
+  private void OnDestroy() {
+    Destroy(uiBattle.gameObject);
+    Destroy(leader.gameObject);
+    Destroy(playerUnitController);
+    Destroy(enemyUnitController);
+    EventManager.Unsubscribe<bool>("gameClear", GameClear);
+    EventManager.Unsubscribe<bool>("gameOver", GameOver);
+  }
 }

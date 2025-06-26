@@ -30,6 +30,7 @@ public class EnemyUnitController :MonoBehaviour {
     EnemyUnit spawnUnit = GameObject.Instantiate(unitPrefab, spawnPos, Quaternion.identity).GetComponent<EnemyUnit>();
     spawnUnit.transform.SetParent(this.transform);
     spawnUnit.Initialize(battleController.GetPlayerController(), this, data.m_unit_id, data.lv);
+    spawnUnit.SetLastUnit(data.end == 1);
     spawnUnit.transform.position = spawnPos;
     alliveUnits.Add(spawnUnit);
   }
@@ -63,5 +64,15 @@ public class EnemyUnitController :MonoBehaviour {
     if(deadUnit == null)
       return;
     alliveUnits.Remove(unit);
+  }
+  private void OnDestroy() {
+    EventManager.Unsubscribe<SpawnData>("enemyPop", SpawnEnemy);
+    EventManager.Unsubscribe<EnemyUnit>("enemyUnitDead", onDeadEnemyUnit);
+    foreach(var unit in alliveUnits) {
+      if(unit != null) {
+        Destroy(unit.gameObject);
+      }
+    }
+    alliveUnits.Clear();
   }
 }
