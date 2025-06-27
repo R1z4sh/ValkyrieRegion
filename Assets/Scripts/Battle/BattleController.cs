@@ -8,7 +8,6 @@ public class BattleController :MonoBehaviour {
   [SerializeField] private Leader leader = null;
   [SerializeField] private Button pauseButton = null;
 
-  private bool isStop = false;
 
   public void Initialize() {
     playerUnitController.Initialize(this);

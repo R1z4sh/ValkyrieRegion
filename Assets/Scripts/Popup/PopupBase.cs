@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-public abstract class PopupBase<TData, TResult> : MonoBehaviour {
+public abstract class PopupBase<TData, TResult> :MonoBehaviour {
   private TaskCompletionSource<TResult> result;
 
-  public virtual async void Initialize(TData data , TaskCompletionSource<TResult> res) {
+  public virtual async void Initialize(TData data, TaskCompletionSource<TResult> res) {
     result = res;
   }
 

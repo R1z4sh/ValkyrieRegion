@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyUnit :UnitBase {
 
   private bool lastUnit = false;
+  private Rigidbody2D rb = null;
 
   public void SetLastUnit(bool flag) {
     lastUnit = flag;
@@ -16,6 +17,8 @@ public class EnemyUnit :UnitBase {
     string unitIdPath = string.Format("{0:D4}", unitId);
     unitImage.sprite = Resources.Load<Sprite>("Sprites/Battle/Unit/Enemy" + unitIdPath);
     actionFlowController.To((int)EnemyUnitAct.CommonMove);
+    rb = GetComponent<Rigidbody2D>();
+    rb.freezeRotation = true;
   }
 
 

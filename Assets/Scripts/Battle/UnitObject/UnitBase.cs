@@ -43,7 +43,6 @@ enum UnitActionStatus {
 }
 
 public class UnitBase :MonoBehaviour {
-  public int hp = 0;
   [SerializeField] protected SpriteRenderer unitImage;
   protected UnitStatus status = null;
   protected int unitActionStatus = 0;
@@ -79,10 +78,6 @@ public class UnitBase :MonoBehaviour {
             data.move
         );
     this.unitActionStatus = (int)UnitActionStatus.Move;
-  }
-
-  private void Update() {
-    hp = status.Hp();
   }
 
   public void OnDamage(int damage) {
