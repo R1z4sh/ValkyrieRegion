@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UnitStatus {
-  public UnitStatus(int cost, string unitName, int hp, int offense, float minAttackRange, float maxAttackRange, float attackCool, float move) {
+  public UnitStatus(int cost, string unitName, int hp, int offense, float minAttackRange, float maxAttackRange, float attackCool, float move, float attackTime) {
     this.cost = cost;
     this.unitName = unitName;
     this.hp = hp;
@@ -11,6 +11,8 @@ public class UnitStatus {
     this.maxAttackRange = maxAttackRange;
     this.attackCool = attackCool;
     this.move = move;
+    this.attackTime = attackTime;
+
   }
   public int Cost() { return cost; }
   public string UnitName() { return unitName; }
@@ -20,7 +22,7 @@ public class UnitStatus {
   public float MaxAttackRange() { return maxAttackRange; }
   public float AttackCool() { return attackCool; }
   public float Move() { return move; }
-
+  public float AttackTime() { return attackTime; }
   public bool OnDamage(int damage) {
     hp -= damage;
     return hp <= 0;
@@ -33,6 +35,7 @@ public class UnitStatus {
   private float maxAttackRange;
   private float attackCool;
   private float move;
+  private float attackTime;
 }
 
 enum UnitActionStatus {
@@ -76,7 +79,8 @@ public class UnitBase :MonoBehaviour {
             data.min_attack_range,
             data.max_attack_range,
             data.attack_cool,
-            data.move
+            data.move,
+            data.attack_time
         );
     this.unitActionStatus = (int)UnitActionStatus.Move;
     this.fullHp = status.Hp();
