@@ -9,7 +9,7 @@ public class EnemyFlowAttack :FlowBase {
 
 
   private IEnumerator Attack() {
-    yield return (owner.Status().AttackTime());
+    yield return new WaitForSeconds(owner.Status().AttackTime());
     this.cool = owner.Status().AttackCool();
     if(target) {
       target.OnDamage(owner.Status().Offense());
