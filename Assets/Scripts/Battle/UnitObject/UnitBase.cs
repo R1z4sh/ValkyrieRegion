@@ -44,13 +44,14 @@ enum UnitActionStatus {
 
 public class UnitBase :MonoBehaviour {
   [SerializeField] protected SpriteRenderer unitImage;
+  [SerializeField] protected HealthBar healthGauge = null;
   protected UnitStatus status = null;
   protected int unitActionStatus = 0;
   protected float attackCoolTime = 0f;
   protected PlayerUnitController playerUnitController = null;
   protected EnemyUnitController enemyUnitController = null;
   protected UnitActionFlowController actionFlowController = null;
-
+  protected int fullHp = 0;
   public bool IsDead() {
     return status == null || status.Hp() <= 0;
   }
@@ -78,10 +79,13 @@ public class UnitBase :MonoBehaviour {
             data.move
         );
     this.unitActionStatus = (int)UnitActionStatus.Move;
+    this.fullHp = status.Hp();
+    healthGauge.SetRate(1f);
   }
 
   public void OnDamage(int damage) {
     if(status.OnDamage(damage)) OnDead();
+    healthGauge.SetRate((float)status.Hp() / this.fullHp);
   }
 
   protected virtual void OnDead() { }
