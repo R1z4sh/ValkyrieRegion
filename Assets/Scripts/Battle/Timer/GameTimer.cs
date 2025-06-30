@@ -17,7 +17,7 @@ public class GameTimer :MonoBehaviour {
   }
 
   public void Initialize(int stageId) {
-    enemySpawn = MasterManager.LoadMasterData<EnemySpawnMaster>("Master/M_EnemySpawn");
+    enemySpawn = MasterManager.enemySpawnMaster;
     spawnList = enemySpawn.GetSpawnList(stageId);
     Schedule();
     EventManager.Subscribe<bool>("gameStop", Stop);

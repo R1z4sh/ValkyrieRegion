@@ -65,7 +65,7 @@ public class UnitBase :MonoBehaviour {
     this.actionFlowController = new UnitActionFlowController(this, playerUnitController, enemyUnitController);
     this.playerUnitController = playerUnitController;
     this.enemyUnitController = enemyUnitController;
-    UnitMaster unitMaster = MasterManager.LoadMasterData<UnitMaster>("Master/M_Unit");
+    UnitMaster unitMaster = MasterManager.unitMaster;
     UnitData data = unitMaster.GetUnitData(unitId);
     status = new UnitStatus(
         data.cost,

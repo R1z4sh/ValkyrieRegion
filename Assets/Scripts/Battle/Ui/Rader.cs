@@ -12,6 +12,12 @@ public class Rader :MonoBehaviour {
   [SerializeField] private GameObject playerUnitRoot = null;
   [SerializeField] private GameObject enemyUnitRoot = null;
 
+  private Tower towerNode = null;
+
+  private void Start() {
+    towerNode = Tower.Instance();
+  }
+
 
   private void UpdatePlayerUnit() {
     if(playerUnitRoot.transform.childCount > playerUnitController.AlliveUnits().Count) {
@@ -55,8 +61,9 @@ public class Rader :MonoBehaviour {
   }
 
   private void UpdateTower() {
-    float posX = (Tower.Instance().transform.position.x - leader.transform.position.x) * 2;
-    float posY = (Tower.Instance().transform.position.y - leader.transform.position.y) * 2;
+
+    float posX = (towerNode.transform.position.x - leader.transform.position.x) * 2;
+    float posY = (towerNode.transform.position.y - leader.transform.position.y) * 2;
     tower.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, posY);
   }
 

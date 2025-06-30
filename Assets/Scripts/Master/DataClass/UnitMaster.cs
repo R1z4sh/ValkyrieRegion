@@ -21,8 +21,10 @@ public class UnitData {
 
 
 [Serializable]
-public class UnitMaster {
+public class UnitMaster :MasterData {
   public List<UnitData> data;
+
+  public UnitMaster(List<UnitData> data) { this.data = data; }
 
   public UnitData GetUnitData(int id) {
     return data.Find((x) => x.m_unit_id == id);
