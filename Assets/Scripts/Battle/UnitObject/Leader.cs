@@ -6,6 +6,7 @@ public class Leader :MonoBehaviour {
   private Action<Vector3, Vector3> onChangeDirection = null;
   private FloatingJoystick joystick;
   private Vector3 direction = Vector3.zero;
+  private Rigidbody2D rb = null;
   private float moveSpeed = 2f;
   public void Initialize(FloatingJoystick joystick, Action<Vector3, Vector3> onChangeDirection) {
     this.joystick = joystick;
@@ -13,6 +14,8 @@ public class Leader :MonoBehaviour {
     direction.y = 1f;
     this.joystick.Initialize(SetDirection);
     EventManager.Subscribe<bool>("gameStop", Stop);
+    rb = GetComponent<Rigidbody2D>();
+    rb.freezeRotation = true;
   }
 
 

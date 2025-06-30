@@ -13,8 +13,10 @@ public class SpawnData {
 }
 
 [Serializable]
-public class EnemySpawnMaster {
+public class EnemySpawnMaster :MasterData {
   public List<SpawnData> data;
+
+  public EnemySpawnMaster(List<SpawnData> data) { this.data = data; }
 
   public List<SpawnData> GetSpawnList(int stageId) {
     return data.FindAll((x) => x.stage_id == stageId);

@@ -1,16 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar :MonoBehaviour {
-  [SerializeField] private Transform rateTransform;
-
+  [SerializeField] private RectTransform rateGauge;
+  [SerializeField] private float gaugeWidth;
   public void SetRate(float rate) {
-    rate = Mathf.Clamp01(rate);
-    Vector3 scale = rateTransform.localScale;
-    scale.x = rate;
-    rateTransform.localScale = scale;
-    float fullWidth = 1f;
-    Vector3 pos = rateTransform.localPosition;
-    pos.x = -(1 - rate) * fullWidth * 0.5f;
-    rateTransform.localPosition = pos;
+    rateGauge.sizeDelta = new Vector2(gaugeWidth * rate, rateGauge.sizeDelta.y);
   }
 }
