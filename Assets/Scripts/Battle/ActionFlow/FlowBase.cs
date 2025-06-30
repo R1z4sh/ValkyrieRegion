@@ -2,7 +2,6 @@ using UniRx;
 using UnityEngine;
 
 public class FlowBase :MonoBehaviour {
-
   protected PlayerUnitController playerUnitcontoller = null;
   protected EnemyUnitController enemyUnitController = null;
   protected ReactiveProperty<int> flowStatus = null;

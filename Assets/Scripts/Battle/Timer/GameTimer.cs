@@ -36,10 +36,6 @@ public class GameTimer :MonoBehaviour {
   }
 
   private IEnumerator SpawnTrigger(SpawnData data, float delay) {
-    //yield return new WaitForSeconds(delay);
-    //for(int i = 0; i < data.count; ++i) {
-    //  EventManager.Trigger("enemyPop", spawnList[i]);
-    //}
     float elapsed = 0f;
     while(elapsed < delay) {
       if(!isStop) {
@@ -49,7 +45,7 @@ public class GameTimer :MonoBehaviour {
     }
 
     for(int i = 0; i < data.count; ++i) {
-      EventManager.Trigger("enemyPop", data); // © spawnList[i] ¨ data ‚ÉC³iƒoƒOC³j
+      EventManager.Trigger("enemyPop", data);
     }
   }
 

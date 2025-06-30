@@ -10,6 +10,7 @@ public class Tower :MonoBehaviour {
   private void Start() {
     instance = this;
     healthGauge.SetRate(1f);
+    StartCoroutine(Heal());
   }
 
   public static Tower Instance() {
@@ -20,6 +21,7 @@ public class Tower :MonoBehaviour {
     ) {
     yield return new WaitForSeconds(5f);
     hp += 25;
+    StartCoroutine(Heal());
   }
 
   public void OnDamage(int damage) {
