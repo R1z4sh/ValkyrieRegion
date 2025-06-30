@@ -1,3 +1,4 @@
+using System.Collections;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -7,11 +8,12 @@ public class AllayFlowAttack :FlowBase {
   public float cool = 0;
   private EnemyUnit target = null;
 
-  private void Attack() {
+  private IEnumerator Attack() {
+    yield return (owner.Status().AttackTime());
     this.cool = owner.Status().AttackCool();
     if(target) {
       target.OnDamage(owner.Status().Offense());
-      return;
+      yield return null;
     }
   }
 
@@ -41,6 +43,6 @@ public class AllayFlowAttack :FlowBase {
     }
     cool = Mathf.Max(0, cool - Time.deltaTime);
     if(cool > 0) return;
-    Attack();
+    StartCoroutine(Attack());
   }
 }

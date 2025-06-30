@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyFlowAttack :FlowBase {
@@ -7,11 +8,12 @@ public class EnemyFlowAttack :FlowBase {
   private PlayerUnit target = null;
 
 
-  private void Attack() {
+  private IEnumerator Attack() {
+    yield return (owner.Status().AttackTime());
     this.cool = owner.Status().AttackCool();
     if(target) {
       target.OnDamage(owner.Status().Offense());
-      return;
+      yield return null;
     }
     Tower.Instance().OnDamage(owner.Status().Offense());
   }
@@ -57,7 +59,7 @@ public class EnemyFlowAttack :FlowBase {
     }
     cool = Mathf.Max(0, cool - Time.deltaTime);
     if(cool > 0) return;
-    Attack();
+    StartCoroutine(Attack());
   }
 }
 

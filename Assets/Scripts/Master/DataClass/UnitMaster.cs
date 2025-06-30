@@ -17,6 +17,7 @@ public class UnitData {
   public float move;
   public int action;
   public int attack_type;
+  public float attack_time;
 }
 
 
