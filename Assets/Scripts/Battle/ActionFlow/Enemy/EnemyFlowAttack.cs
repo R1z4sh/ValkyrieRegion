@@ -1,21 +1,22 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyFlowAttack :FlowBase {
   private EnemyUnit owner = null;
   public float cool = 0;
   private bool attackTarget = false;
   private PlayerUnit target = null;
-
-
+  private bool isCountDown = true;
   private IEnumerator Attack() {
+    owner.AttackRangeActive(true);
+    isCountDown = false;
     yield return new WaitForSeconds(owner.Status().AttackTime());
+    owner.AttackRangeActive(false);
+    isCountDown = true;
     this.cool = owner.Status().AttackCool();
-    if(target) {
-      target.OnDamage(owner.Status().Offense());
-      yield return null;
-    }
-    Tower.Instance().OnDamage(owner.Status().Offense());
+    if(target) target.OnDamage(owner.Status().Offense());
+    else Tower.Instance().OnDamage(owner.Status().Offense());
   }
 
   private void UpdateUnitTarget() {
@@ -57,8 +58,8 @@ public class EnemyFlowAttack :FlowBase {
       Step((int)EnemyUnitAct.CommonMove);
       return;
     }
-    cool = Mathf.Max(0, cool - Time.deltaTime);
-    if(cool > 0) return;
+    if(isCountDown) cool = Mathf.Max(0, cool - Time.deltaTime);
+    if(cool > 0 || !isCountDown) return;
     StartCoroutine(Attack());
   }
 }

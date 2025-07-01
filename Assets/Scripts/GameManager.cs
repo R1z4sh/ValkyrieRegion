@@ -8,10 +8,7 @@ using UnityEngine.Networking;
 
 public class GameManager :MonoBehaviour {
   void Start() {
-    WWWForm form = new WWWForm();
-    form.AddField("user", "devuser");
-    form.AddField("pass", "your_password");
-    ApiClient.Instance().Fetch<MasterDataWrapper>("http://163.43.218.37/api/dataload", form, MasterManager.LoadSeverData);
+    MasterManager.LoadSeverData();
     GameSceneManager.Instance().ChangeScene(SceneName.Title);
   }
 

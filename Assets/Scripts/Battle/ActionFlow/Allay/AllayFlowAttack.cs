@@ -7,14 +7,16 @@ public class AllayFlowAttack :FlowBase {
   private PlayerUnit owner = null;
   public float cool = 0;
   private EnemyUnit target = null;
+  private bool isCountDown = true;
 
   private IEnumerator Attack() {
+    isCountDown = false;
+    owner.AttackRangeActive(true);
     yield return new WaitForSeconds(owner.Status().AttackTime());
+    owner.AttackRangeActive(false);
+    isCountDown = true;
     this.cool = owner.Status().AttackCool();
-    if(target) {
-      target.OnDamage(owner.Status().Offense());
-      yield return null;
-    }
+    if(target) target.OnDamage(owner.Status().Offense());
   }
 
   private void UpdateUnitTarget() {
@@ -41,8 +43,9 @@ public class AllayFlowAttack :FlowBase {
       Step((int)AllyUnitAct.CommonMove);
       return;
     }
-    cool = Mathf.Max(0, cool - Time.deltaTime);
-    if(cool > 0) return;
+    if(isCountDown) cool = Mathf.Max(0, cool - Time.deltaTime);
+    if(cool > 0 || !isCountDown) return;
+    Debug.Log("AllayOnAttack");
     StartCoroutine(Attack());
   }
 }
