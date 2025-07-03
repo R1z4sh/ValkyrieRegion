@@ -542,8 +542,8 @@ Transform:
   m_GameObject: {fileID: 4430010052176540688}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50, y: 0, z: 0}
-  m_LocalScale: {x: 60, y: 40, z: 1}
+  m_LocalPosition: {x: 30, y: 0, z: 0}
+  m_LocalScale: {x: 40, y: 40, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5623320414736278313}
@@ -967,6 +967,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 3792269020990510812, guid: 49242688ebab80340b7fe5c0c3982e5a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3792269020990510812, guid: 49242688ebab80340b7fe5c0c3982e5a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5249246754873484991, guid: 49242688ebab80340b7fe5c0c3982e5a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1011,6 +1019,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: e7c646a5580c0814694844dceb490f2b, type: 2}
+    - target: {fileID: 7846132683036604809, guid: 49242688ebab80340b7fe5c0c3982e5a, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

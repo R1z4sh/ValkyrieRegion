@@ -12,8 +12,4 @@ public class GameManager :MonoBehaviour {
     GameSceneManager.Instance().ChangeScene(SceneName.Title);
   }
 
-
-  private void Data(string data) {
-    Debug.Log("ì¬ƒf[ƒ^" + data);
-  }
 }

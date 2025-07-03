@@ -7,7 +7,7 @@ public class Leader :MonoBehaviour {
   private FloatingJoystick joystick;
   private Vector3 direction = Vector3.zero;
   private Rigidbody2D rb = null;
-  private float moveSpeed = 2f;
+  private float moveSpeed = 6f;
   public void Initialize(FloatingJoystick joystick, Action<Vector3, Vector3> onChangeDirection) {
     this.joystick = joystick;
     this.onChangeDirection = onChangeDirection;

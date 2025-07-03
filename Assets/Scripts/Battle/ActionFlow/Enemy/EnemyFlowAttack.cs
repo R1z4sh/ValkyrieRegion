@@ -16,7 +16,7 @@ public class EnemyFlowAttack :FlowBase {
     isCountDown = true;
     this.cool = owner.Status().AttackCool();
     if(target) target.OnDamage(owner.Status().Offense());
-    else Tower.Instance().OnDamage(owner.Status().Offense());
+    else Tower.Instance().OnDamage(0, owner.Status().Offense());
   }
 
   private void UpdateUnitTarget() {
