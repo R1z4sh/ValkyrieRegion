@@ -31,6 +31,8 @@ public class Leader :MonoBehaviour {
     this.transform.position += this.transform.up * joystick.Vertical * moveSpeed * Time.deltaTime;
     //左スティックでの横移動
     this.transform.position += this.transform.right * joystick.Horizontal * moveSpeed * Time.deltaTime;
+    Vector3 pos = this.transform.position;
+    this.transform.position = new Vector3(Math.Clamp(pos.x, 0, 60), pos.y, 0f);
   }
 
   private void SetDirection() {
