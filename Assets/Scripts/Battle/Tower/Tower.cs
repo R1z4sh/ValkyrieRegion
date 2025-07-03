@@ -2,35 +2,26 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 public class Tower :MonoBehaviour {
-  [SerializeField] HealthBar healthGauge = null;
+  [SerializeField] AllayTower allayTower = null;
+  [SerializeField] EnemyTower enemyTower = null;
   private static Tower instance = null;
-  private int hp = 1000;
 
   private void Start() {
     instance = this;
-    healthGauge.SetRate(1f);
-    StartCoroutine(Heal());
   }
 
   public static Tower Instance() {
     return instance;
   }
 
-  private IEnumerator Heal(
-    ) {
-    yield return new WaitForSeconds(5f);
-    hp += 25;
-    StartCoroutine(Heal());
-  }
+  public void OnDamage(int team, int damage) {
+    int Allay = 0;
+    int Enemy = 1;
+    if(team == Allay && allayTower.OnDamage(damage)) EventManager.Trigger<bool>("gameOver", true);
+    if(team == Enemy && enemyTower.OnDamage(damage)) EventManager.Trigger<bool>("gameClear", true);
 
-  public void OnDamage(int damage) {
-    this.hp -= damage;
-    healthGauge.SetRate((float)hp / 1000);
-    if(hp <= 0) OnDead();
-  }
-  private void OnDead() {
-    EventManager.Trigger<bool>("gameOver", true);
   }
 }
 

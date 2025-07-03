@@ -48,6 +48,8 @@ enum UnitActionStatus {
 public class UnitBase :MonoBehaviour {
   [SerializeField] protected SpriteRenderer unitImage;
   [SerializeField] protected HealthBar healthGauge = null;
+  [SerializeField] protected AttackRangeController attackRange = null;
+
   protected UnitStatus status = null;
   protected int unitActionStatus = 0;
   protected float attackCoolTime = 0f;
@@ -55,6 +57,11 @@ public class UnitBase :MonoBehaviour {
   protected EnemyUnitController enemyUnitController = null;
   protected UnitActionFlowController actionFlowController = null;
   protected int fullHp = 0;
+
+
+  public void AttackRangeActive(bool flag) {
+    this.attackRange.SetActive(flag);
+  }
   public bool IsDead() {
     return status == null || status.Hp() <= 0;
   }
@@ -85,6 +92,7 @@ public class UnitBase :MonoBehaviour {
     this.unitActionStatus = (int)UnitActionStatus.Move;
     this.fullHp = status.Hp();
     healthGauge.SetRate(1f);
+    attackRange.Initialize(status.MinAttackRange(), status.MaxAttackRange());
   }
 
   public void OnDamage(int damage) {
