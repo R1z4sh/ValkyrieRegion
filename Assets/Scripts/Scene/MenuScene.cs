@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System.Threading.Tasks;
 using UnityEngine.UI;
 
 public class MenuScene :SceneBase {
@@ -8,8 +6,10 @@ public class MenuScene :SceneBase {
   public Button button;
   //public DoubleTapButton button;
 
-  public override void Initialize(SceneData data = null) {
-    button.onClick.AddListener(() => GameSceneManager.Instance().ChangeScene(SceneName.Game));
+  public override async Task Initialize(SceneData data = null) {
+    BattleData battleData = new BattleData();
+    battleData.stageId = 100001;
+    button.onClick.AddListener(() => GameSceneManager.Instance().ChangeScene(SceneName.Game, battleData));
     //button.SetOnClickEvent(() => ShowPopup());
   }
 

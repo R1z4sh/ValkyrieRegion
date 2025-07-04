@@ -12,6 +12,8 @@ public class PlayerUnitController :MonoBehaviour {
     return alliveUnits;
   }
 
+
+
   public void LeaderData(Vector3 position, Vector3 direction) {
     this.leaderPos = position;
     this.direction = direction;

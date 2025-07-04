@@ -35,7 +35,7 @@ public class EnemyFlowAttack :FlowBase {
     if(target != null) return;
     attackTarget = false;
     if(Tower.Instance() == null) return;
-    float distance = Vector3.Distance(Tower.Instance().transform.position, owner.transform.position);
+    float distance = Vector3.Distance(Tower.Instance().TowerPosition(0), owner.transform.position);
     if(owner.IsAttackRange(distance)) {
       attackTarget = true;
     }

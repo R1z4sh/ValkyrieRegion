@@ -1,14 +1,38 @@
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 //シーン引継ぎ用インターフェイス
 
 public class TitleScene :SceneBase {
-  public override void Initialize(SceneData data = null) {
+  [SerializeField] Animation logoAnimation = null;
+  [SerializeField] Animation warningAnimation = null;
+  [SerializeField] GameObject gameStartItems = null;
+  [SerializeField] Button gameStartButton = null;
+
+  public override async Task Initialize(SceneData data = null) {
+    StartCoroutine(LogoAnimation());
+    gameStartButton.onClick.AddListener(GameStart);
+    gameStartItems.SetActive(false);
   }
   public override void Fainalize() { }
 
-  private void Update() {
-    if(Input.GetMouseButtonDown(0))
-      GameSceneManager.Instance().ChangeScene(SceneName.Menu);
+  private IEnumerator LogoAnimation() {
+    logoAnimation.Play();
+    yield return null;
+    yield return new WaitForSeconds(logoAnimation.clip.length);
+    StartCoroutine(WarningAnimation());
+  }
+
+  private IEnumerator WarningAnimation() {
+    warningAnimation.Play();
+    yield return null;
+    yield return new WaitForSeconds(warningAnimation.clip.length);
+    gameStartItems.SetActive(true);
+  }
+
+  public void GameStart() {
+    GameSceneManager.Instance().ChangeScene(SceneName.Menu);
   }
 }

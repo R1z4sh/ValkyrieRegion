@@ -8,6 +8,12 @@ public class Leader :MonoBehaviour {
   private Vector3 direction = Vector3.zero;
   private Rigidbody2D rb = null;
   private float moveSpeed = 6f;
+  private Vector2 moveRange = new Vector2();
+
+  public void SetMoveRange(Vector2 range) {
+    this.moveRange = range;
+  }
+
   public void Initialize(FloatingJoystick joystick, Action<Vector3, Vector3> onChangeDirection) {
     this.joystick = joystick;
     this.onChangeDirection = onChangeDirection;
@@ -31,6 +37,8 @@ public class Leader :MonoBehaviour {
     this.transform.position += this.transform.up * joystick.Vertical * moveSpeed * Time.deltaTime;
     //左スティックでの横移動
     this.transform.position += this.transform.right * joystick.Horizontal * moveSpeed * Time.deltaTime;
+    Vector3 pos = this.transform.position;
+    this.transform.position = new Vector3(Math.Clamp(pos.x, 10, moveRange.x - 10), Math.Clamp(pos.y, -moveRange.y / 2 + 10, moveRange.y / 2 - 10), 0);
   }
 
   private void SetDirection() {

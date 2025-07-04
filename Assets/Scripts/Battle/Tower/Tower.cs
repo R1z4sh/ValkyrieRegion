@@ -8,8 +8,21 @@ public class Tower :MonoBehaviour {
   [SerializeField] EnemyTower enemyTower = null;
   private static Tower instance = null;
 
-  private void Start() {
+  protected void Awake() {
     instance = this;
+    if(allayTower == null || enemyTower == null) {
+      Debug.LogError("AllayTower or EnemyTower is not assigned in the inspector.");
+      return;
+    }
+  }
+
+
+  public Vector3 TowerPosition(int team) {
+    return team == 0 ? allayTower.gameObject.transform.position : enemyTower.gameObject.transform.position;
+  }
+  public void InitializeToewrPosition(Vector3 allay, Vector3 enemy) {
+    allayTower.gameObject.transform.position = allay;
+    enemyTower.gameObject.transform.position = enemy;
   }
 
   public static Tower Instance() {

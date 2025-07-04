@@ -15,7 +15,7 @@ public class EnemyFlowMove :FlowBase {
   }
   private void UpdateTowerTarget() {
     if(Tower.Instance() == null) return;
-    float distance = Vector3.Distance(Tower.Instance().transform.position, owner.transform.position);
+    float distance = Vector3.Distance(Tower.Instance().TowerPosition(0), owner.transform.position);
     if(owner.IsAttackRange(distance)) {
       Step((int)EnemyUnitAct.Attack);
       return;
@@ -24,7 +24,7 @@ public class EnemyFlowMove :FlowBase {
 
   private void Move() {
     if(Tower.Instance() == null) return;
-    Vector3 direction = (Tower.Instance().transform.position - owner.transform.position).normalized;
+    Vector3 direction = (Tower.Instance().TowerPosition(0) - owner.transform.position).normalized;
     owner.transform.position += direction * owner.Status().Move() * Time.deltaTime;
   }
 
