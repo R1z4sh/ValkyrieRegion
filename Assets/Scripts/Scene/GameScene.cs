@@ -1,11 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
+
+public class BattleData :SceneData {
+  public int stageId;
+}
 
 public class GameScene :SceneBase {
   [SerializeField] private BattleController battleController;
-  public override void Initialize(SceneData data = null) {
-    battleController.Initialize();
+  private BattleData battleData = null;
+  public override async Task Initialize(SceneData data = null) {
+    if(data != null) battleData = data as BattleData;
+    battleController.Initialize(battleData.stageId);
   }
 }

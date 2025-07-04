@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class MasterData { };
@@ -7,8 +7,8 @@ public class MasterManager {
   public static UnitMaster unitMaster = null;
   public static EnemySpawnMaster enemySpawnMaster = null;
   public static LeaderMaster leaderMaster = null;
-
-  public static async void LoadSeverData() {
+  public static StageMaster stageMaster = null;
+  public static async Task LoadSeverData() {
     WWWForm form = new WWWForm();
     form.AddField("user", "devuser");
     form.AddField("pass", "your_password");
@@ -16,6 +16,7 @@ public class MasterManager {
     unitMaster = new UnitMaster(data.M_Unit);
     enemySpawnMaster = new EnemySpawnMaster(data.M_EnemySpawn);
     leaderMaster = new LeaderMaster(data.M_Leader);
+    stageMaster = new StageMaster(data.m_stages);
   }
 
 
