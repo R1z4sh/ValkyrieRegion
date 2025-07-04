@@ -73,10 +73,6 @@ public class BattleController :MonoBehaviour {
     GameObject prefab = Resources.Load<GameObject>("Prefabs/Battle/Popup/PopupOption");
     await PopupManager.Instance().ShowPopup<int, bool, PopupOption>(0, prefab);
   }
-
-
-
-
   private void OnDestroy() {
     Destroy(uiBattle.gameObject);
     Destroy(leader.gameObject);

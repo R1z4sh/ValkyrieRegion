@@ -16,6 +16,10 @@ public class Tower :MonoBehaviour {
     }
   }
 
+
+  public Vector3 TowerPosition(int team) {
+    return team == 0 ? allayTower.gameObject.transform.position : enemyTower.gameObject.transform.position;
+  }
   public void InitializeToewrPosition(Vector3 allay, Vector3 enemy) {
     allayTower.gameObject.transform.position = allay;
     enemyTower.gameObject.transform.position = enemy;
