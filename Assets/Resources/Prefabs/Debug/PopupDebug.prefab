@@ -285,18 +285,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: -20
     m_Right: 0
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 5
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!114 &5270334914193747465
 MonoBehaviour:
@@ -723,6 +723,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9095757726229710074}
+  - component: {fileID: 4660113205775277788}
   m_Layer: 0
   m_Name: PopupDebug
   m_TagString: Untagged
@@ -746,6 +747,20 @@ Transform:
   - {fileID: 1188398321088251675}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4660113205775277788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7642324754061965429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93170e5d3dd192b4497dccbe59a7a74f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugRoot: {fileID: 2852989020185593418}
+  debugItem: {fileID: 1350233331735158013, guid: 7328b2da51ab59346be6b0fcf8e8c0f9, type: 3}
 --- !u!1 &7916273166914178446
 GameObject:
   m_ObjectHideFlags: 0
