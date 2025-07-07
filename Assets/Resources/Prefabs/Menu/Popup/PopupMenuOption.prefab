@@ -339,7 +339,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: dataload
+  m_Text: "\u30C7\u30D0\u30C3\u30B0\u30E1\u30CB\u30E5\u30FC"
 --- !u!1 &2160325588728710496
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 4229525895380728690}
-  menuButton: {fileID: 4180187914787223123}
+  debugMenuButton: {fileID: 4180187914787223123}
 --- !u!1 &2900997247617898431
 GameObject:
   m_ObjectHideFlags: 0

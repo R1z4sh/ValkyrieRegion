@@ -6,15 +6,15 @@ public class MenuScene : SceneBase {
 
   public Button button;
   [SerializeField] private Button optionButton = null;
-  //public DoubleTapButton button;
+
 
   public override async Task Initialize(SceneData data = null) {
     BattleData battleData = new BattleData();
     battleData.stageId = 100001;
     button.onClick.AddListener(() => GameSceneManager.Instance().ChangeScene(SceneName.Game , battleData));
     optionButton.onClick.AddListener(() => ShowPopup());
+    button.onClick.AddListener(() => GameSceneManager.Instance().ChangeScene(SceneName.Game , battleData));
   }
-
 
   public override void Fainalize() { }
   private async void ShowPopup() {
