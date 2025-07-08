@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 7764804338639738394}
-  debugMenuButton: {fileID: 2429216675904486806}
+  optionButton: {fileID: 2429216675904486806}
 --- !u!1 &3116387492955381854
 GameObject:
   m_ObjectHideFlags: 0
