@@ -30,7 +30,6 @@ public class EnemyUnitController :MonoBehaviour {
     EnemyUnit spawnUnit = GameObject.Instantiate(unitPrefab, spawnPos, Quaternion.identity).GetComponent<EnemyUnit>();
     spawnUnit.transform.SetParent(this.transform);
     spawnUnit.Initialize(battleController.GetPlayerController(), this, data.m_unit_id, data.lv);
-    spawnUnit.SetLastUnit(data.end == 1);
     spawnUnit.transform.position = spawnPos;
     alliveUnits.Add(spawnUnit);
   }

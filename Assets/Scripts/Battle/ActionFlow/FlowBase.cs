@@ -5,10 +5,13 @@ public class FlowBase :MonoBehaviour {
   protected PlayerUnitController playerUnitcontoller = null;
   protected EnemyUnitController enemyUnitController = null;
   protected ReactiveProperty<int> flowStatus = null;
+  public GameObject target = null;
   public virtual void Initialize(
     ReactiveProperty<int> flowStatus,
     PlayerUnitController playerUnitcontoller,
-    EnemyUnitController enemyUnitController) {
+    EnemyUnitController enemyUnitController,
+    GameObject target = null) {
+    if(target != null) this.target = target;
     this.flowStatus = flowStatus;
     this.playerUnitcontoller = playerUnitcontoller;
     this.enemyUnitController = enemyUnitController;

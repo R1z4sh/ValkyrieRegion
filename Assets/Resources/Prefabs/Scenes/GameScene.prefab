@@ -746,6 +746,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4793113274627793465, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793113274627793465, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793113274627793465, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793113274627793465, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793113274627793465, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 8400000, guid: 1ad750f4211b8ce4b891dab57416cdf9, type: 2}
+    - target: {fileID: 4793113274627793465, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8514886005141978263, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
       propertyPath: m_Name
       value: BattleUi

@@ -17,6 +17,12 @@ public class Tower :MonoBehaviour {
   }
 
 
+  public GameObject SetTaret(int team) {
+    if(team == 0) return allayTower.gameObject;
+    if(team == 1) return enemyTower.gameObject;
+    return null;
+  }
+
   public Vector3 TowerPosition(int team) {
     return team == 0 ? allayTower.gameObject.transform.position : enemyTower.gameObject.transform.position;
   }

@@ -1,13 +1,7 @@
 using UnityEngine;
 
 public class EnemyUnit :UnitBase {
-
-  private bool lastUnit = false;
   private Rigidbody2D rb = null;
-
-  public void SetLastUnit(bool flag) {
-    lastUnit = flag;
-  }
 
   public override void Initialize(
    PlayerUnitController playerUnitController,
@@ -24,6 +18,5 @@ public class EnemyUnit :UnitBase {
 
   protected override void OnDead() {
     EventManager.Trigger<EnemyUnit>("EnemyUnitDead", this);
-    if(lastUnit) EventManager.Trigger<bool>("gameClear", true);
   }
 }

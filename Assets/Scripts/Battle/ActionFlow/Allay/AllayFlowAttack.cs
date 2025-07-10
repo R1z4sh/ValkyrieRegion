@@ -6,7 +6,6 @@ using UnityEngine.Rendering;
 public class AllayFlowAttack :FlowBase {
   private PlayerUnit owner = null;
   public float cool = 0;
-  private EnemyUnit target = null;
   private bool isCountDown = true;
 
   private IEnumerator Attack() {
@@ -16,33 +15,25 @@ public class AllayFlowAttack :FlowBase {
     owner.AttackRangeActive(false);
     isCountDown = true;
     this.cool = owner.Status().AttackCool();
-    if(target) target.OnDamage(owner.Status().Offense());
+
+    EnemyUnit targetUnit = target.GetComponent<EnemyUnit>();
+    Tower targetTower = target.GetComponent<Tower>();
   }
 
-  private void UpdateUnitTarget() {
-    target = null;
-    foreach(EnemyUnit unit in enemyUnitController.AlliveUnits()) {
-      if(unit.IsDead()) continue;
-      float distance = Vector3.Distance(unit.transform.position, owner.transform.position);
-      if(owner.IsAttackRange(distance) && !unit.IsDead()) {
-        target = unit;
-      }
-    }
-  }
 
   private void Update() {
     if(isStop) return;
+    if(!target) {
+      Step((int)AllyUnitAct.CommonMove);
+      return;
+    }
     if(this.flowStatus.Value != (int)AllyUnitAct.Attack) return;
     if(owner == null) {
       owner = transform.parent.GetComponent<PlayerUnit>();
       return;
     }
     if(owner.IsDead()) Step((int)AllyUnitAct.Dead);
-    UpdateUnitTarget();
-    if(!target) {
-      Step((int)AllyUnitAct.CommonMove);
-      return;
-    }
+
     if(isCountDown) cool = Mathf.Max(0, cool - Time.deltaTime);
     if(cool > 0 || !isCountDown) return;
     Debug.Log("AllayOnAttack");

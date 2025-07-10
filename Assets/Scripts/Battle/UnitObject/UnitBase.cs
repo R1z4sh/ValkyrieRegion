@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UnitStatus {
-  public UnitStatus(int cost, string unitName, int hp, int offense, float minAttackRange, float maxAttackRange, float attackCool, float move, float attackTime) {
+  public UnitStatus(int cost, string unitName, int hp, int offense,
+    float minAttackRange, float maxAttackRange, float attackCool,
+    float move, float attackTime, float searchRange) {
     this.cost = cost;
     this.unitName = unitName;
     this.hp = hp;
@@ -12,7 +14,7 @@ public class UnitStatus {
     this.attackCool = attackCool;
     this.move = move;
     this.attackTime = attackTime;
-
+    this.searchRange = searchRange;
   }
   public int Cost() { return cost; }
   public string UnitName() { return unitName; }
@@ -23,6 +25,8 @@ public class UnitStatus {
   public float AttackCool() { return attackCool; }
   public float Move() { return move; }
   public float AttackTime() { return attackTime; }
+  public float SearchRange() { return searchRange; }
+
   public bool OnDamage(int damage) {
     hp -= damage;
     return hp <= 0;
@@ -36,6 +40,7 @@ public class UnitStatus {
   private float attackCool;
   private float move;
   private float attackTime;
+  private float searchRange;
 }
 
 enum UnitActionStatus {
@@ -68,6 +73,7 @@ public class UnitBase :MonoBehaviour {
 
   public UnitStatus Status() { return status; }
   public bool IsAttackRange(float distance) { return status.MinAttackRange() < distance && status.MaxAttackRange() > distance; }
+  public bool IsSearchRange(float distance) { return status.SearchRange() >= distance; }
 
   public virtual void Initialize(
     PlayerUnitController playerUnitController,
@@ -87,7 +93,8 @@ public class UnitBase :MonoBehaviour {
             data.max_attack_range,
             data.attack_cool,
             data.move,
-            data.attack_time
+            data.attack_time,
+            data.search_range
         );
     this.unitActionStatus = (int)UnitActionStatus.Move;
     this.fullHp = status.Hp();
