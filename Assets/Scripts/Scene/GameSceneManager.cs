@@ -5,6 +5,7 @@ public class GameSceneManager {
   private static GameSceneManager instance = null;
   private GameObject root = null;
   private Animation loadingAnimation = null;
+
   public GameSceneManager() {
     this.root = GameObject.Find("SceneRoot");
     this.loadingAnimation = GameObject.Find("Loading").GetComponent<Animation>();

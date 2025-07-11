@@ -10,6 +10,7 @@ public class TitleScene :SceneBase {
   [SerializeField] Animation warningAnimation = null;
   [SerializeField] GameObject gameStartItems = null;
   [SerializeField] Button gameStartButton = null;
+  [SerializeField] AudioSource audio = null;
 
   public override async Task Initialize(SceneData data = null) {
     StartCoroutine(LogoAnimation());
@@ -30,6 +31,7 @@ public class TitleScene :SceneBase {
     yield return null;
     yield return new WaitForSeconds(warningAnimation.clip.length);
     gameStartItems.SetActive(true);
+    audio.Play();
   }
 
   public void GameStart() {
