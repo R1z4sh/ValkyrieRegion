@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyFlowMove :FlowBase {
   private EnemyUnit owner = null;
+  private PlayerUnit target = null;
 
   private void UpdatePlayerUnitTarget() {
     foreach(PlayerUnit unit in playerUnitcontoller.AlliveUnits()) {

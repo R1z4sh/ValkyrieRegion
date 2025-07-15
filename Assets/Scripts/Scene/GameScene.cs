@@ -7,9 +7,11 @@ public class BattleData :SceneData {
 
 public class GameScene :SceneBase {
   [SerializeField] private BattleController battleController;
+  [SerializeField] private AudioSource audio = null;
   private BattleData battleData = null;
   public override async Task Initialize(SceneData data = null) {
     if(data != null) battleData = data as BattleData;
     battleController.Initialize(battleData.stageId);
+    audio.Play();
   }
 }

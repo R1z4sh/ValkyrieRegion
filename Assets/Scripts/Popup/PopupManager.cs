@@ -11,12 +11,12 @@ public class PopupManager {
     return instance;
   }
 
-  public async Task<TResult> ShowPopup<TData, TResult, TPopup>(TData data, GameObject popupPrefab)
-      where TPopup : PopupBase<TData, TResult> {
+  public async Task<TResult> ShowPopup<TData, TResult, TPopup>(PopupName name, TData data)
+    where TPopup : PopupBase<TData, TResult> {
     var tcs = new TaskCompletionSource<TResult>();
     GameObject obj = GameObject.Find("PopupRoot");
-
-    var popupGO = GameObject.Instantiate(popupPrefab, obj.transform);
+    GameObject prefab = Resources.Load<GameObject>(PopupDefines.PopupPath(name));
+    var popupGO = GameObject.Instantiate(prefab, obj.transform);
 
     if(popupGO.TryGetComponent<TPopup>(out var popup)) {
       popup.Initialize(data, tcs);

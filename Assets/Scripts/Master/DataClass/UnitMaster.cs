@@ -18,6 +18,7 @@ public class UnitData {
   public int action;
   public int attack_type;
   public float attack_time;
+  public float search_range;
 }
 
 
