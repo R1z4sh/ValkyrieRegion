@@ -25,16 +25,16 @@ public class BattleController :MonoBehaviour {
 
   private void CreateState() {
     StageData stageData = MasterManager.stageMaster.GetStageData(stageId);
-    leader.gameObject.transform.position = new Vector3(stageData.player_pos_x, stageData.player_pos_y, 0);
-    leader.SetMoveRange(new Vector2(stageData.scale_x, stageData.scale_y));
+    leader.gameObject.transform.position = new Vector3(stageData.PlayerPosX(), stageData.PlayerPosY(), 0);
+    leader.SetMoveRange(new Vector2(stageData.ScaleX(), stageData.ScaleY()));
     Tower.Instance().InitializeToewrPosition(
-      new Vector3(stageData.player_tower_pos_x, stageData.player_tower_pos_y, 0),
-      new Vector3(stageData.enemy_tower_pos_x, stageData.enemy_tower_pos_y, 0)
+      new Vector3(stageData.PlayerPosX(), stageData.PlayerTowerPosY(), 0),
+      new Vector3(stageData.EnemyTowerPosX(), stageData.EnemyTowerPosY(), 0)
     );
-    background.size = new Vector2(stageData.scale_x, stageData.scale_y);
-    background.transform.position = new Vector3(stageData.scale_x / 2, 0, 0);
-    minimapCamera.transform.position = new Vector3(stageData.scale_x / 2, 0, -10);
-    minimapCamera.orthographicSize = stageData.scale_x / 2;
+    background.size = new Vector2(stageData.ScaleX(), stageData.ScaleY());
+    background.transform.position = new Vector3(stageData.ScaleX() / 2, 0, 0);
+    minimapCamera.transform.position = new Vector3(stageData.ScaleX() / 2, 0, -10);
+    minimapCamera.orthographicSize = stageData.ScaleX() / 2;
   }
 
   public PlayerUnitController GetPlayerController() {
