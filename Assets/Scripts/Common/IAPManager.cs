@@ -25,7 +25,7 @@ public class IAPManager :MonoBehaviour ,IStoreListener
     m_StoreController = controller;
 
     var googleExtensions = extensions.GetExtension<IGooglePlayStoreExtensions>();
-    googleExtensions.
+
   }
 
   /// <summary>
