@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class UnitStatus {
   public UnitStatus(int cost, string unitName, int hp, int offense,
     float minAttackRange, float maxAttackRange, float attackCool,
-    float move, float attackTime, float searchRange)
-  {
+    float move, float attackTime, float searchRange,
+    int action) {
     this.cost = cost;
     this.unitName = unitName;
     this.hp = hp;
@@ -17,6 +17,7 @@ public class UnitStatus {
     this.move = move;
     this.attackTime = attackTime;
     this.searchRange = searchRange;
+    this.action = action;
   }
   public int Cost() { return cost; }
   public string UnitName() { return unitName; }
@@ -28,6 +29,7 @@ public class UnitStatus {
   public float Move() { return move / LocalDefines.SCALING; }
   public float AttackTime() { return attackTime; }
   public float SearchRange() { return searchRange / LocalDefines.SCALING; }
+  public int Action() { return action; }
 
   public bool OnDamage(int damage) {
     hp -= damage;
@@ -43,6 +45,7 @@ public class UnitStatus {
   private float move;
   private float attackTime;
   private float searchRange;
+  private int action;
 }
 
 enum UnitActionStatus {
@@ -96,7 +99,8 @@ public class UnitBase :MonoBehaviour {
             data.attack_cool,
             data.move,
             data.attack_time,
-            data.search_range
+            data.search_range,
+            data.action
         );
     this.unitActionStatus = (int)UnitActionStatus.Move;
     this.fullHp = status.Hp();

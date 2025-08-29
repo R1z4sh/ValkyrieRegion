@@ -18,5 +18,7 @@ public class EnemyUnit :UnitBase {
 
   protected override void OnDead() {
     EventManager.Trigger<EnemyUnit>("EnemyUnitDead", this);
+    actionFlowController.To((int)EnemyUnitAct.Dead);
+
   }
 }

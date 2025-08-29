@@ -5,6 +5,7 @@ enum AllyUnitAct {
   CommonMove,
   Attack,
   Dead,
+  TowerMove,
 }
 
 enum EnemyUnitAct {
@@ -12,6 +13,7 @@ enum EnemyUnitAct {
   CommonMove,
   Attack,
   Dead,
+  TowerMove,
 }
 
 class UnitActionFlowDefines {
@@ -19,9 +21,12 @@ class UnitActionFlowDefines {
     { (int)AllyUnitAct.CommonMove, "Prefabs/Battle/Flow/Allay/AllayMove"},
     { (int)AllyUnitAct.Attack, "Prefabs/Battle/Flow/Allay/AllayAttack"},
     { (int)AllyUnitAct.Dead, "Prefabs/Battle/Flow/Allay/AllayDead"},
+    { (int)AllyUnitAct.TowerMove, "Prefabs/Battle/Flow/Allay/AllayTowerMove"},
     { (int)EnemyUnitAct.CommonMove, "Prefabs/Battle/Flow/Enemy/EnemyMove"},
     { (int)EnemyUnitAct.Attack, "Prefabs/Battle/Flow/Enemy/EnemyAttack"},
-    { (int)EnemyUnitAct.Dead, "Prefabs/Battle/Flow/Enemy/EnemyDead"}, };
+    { (int)EnemyUnitAct.Dead, "Prefabs/Battle/Flow/Enemy/EnemyDead"},
+    { (int)EnemyUnitAct.TowerMove, "Prefabs/Battle/Flow/Enemy/EnemyDead"},
+  };
 
   public static string GetActionFlowPath(int act) {
     return actFilePath[act];

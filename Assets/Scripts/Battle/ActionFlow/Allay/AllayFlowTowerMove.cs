@@ -2,7 +2,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class AllayFlowMove :FlowBase {
+public class AllayFlowTowerMove :FlowBase {
   private PlayerUnit owner = null;
 
   private void UpdateEnemyUnitTarget() {
@@ -22,16 +22,9 @@ public class AllayFlowMove :FlowBase {
       }
     }
   }
-
-  private bool IsTowerTarget() {
-    float range = Mathf.Abs(this.owner.transform.position.x - Tower.Instance().TowerPosition(1).x);
-    return range < 5;
-  }
-
   private void UpdateTowerTarget() {
     if(target != null) return;
     if(Tower.Instance() == null) return;
-    if(!IsTowerTarget()) return;
     target = Tower.Instance().SetTaret(1);
     float distance = Vector3.Distance(Tower.Instance().TowerPosition(1), owner.transform.position);
     if(owner.IsAttackRange(distance)) {
@@ -50,7 +43,7 @@ public class AllayFlowMove :FlowBase {
 
   private void Update() {
     if(isStop) return;
-    if(this.flowStatus.Value != (int)AllyUnitAct.CommonMove) return;
+    if(this.flowStatus.Value != (int)AllyUnitAct.TowerMove) return;
     if(owner == null) {
       owner = transform.parent.GetComponent<PlayerUnit>();
       return;
