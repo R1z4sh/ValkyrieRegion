@@ -2,24 +2,24 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-// 味方ユニットの移動フローを制御するクラス
+// �������j�b�g�̈ړ��t���[�𐧌䂷��N���X
 public class AllayFlowMove :FlowBase {
-  // このフローの対象となる味方ユニット
+  // ���̃t���[�̑ΏۂƂȂ閡�����j�b�g
   private PlayerUnit owner = null;
 
-  // 敵ユニットを探索し、攻撃可能な場合は攻撃フローへ遷移する
+  // �G���j�b�g��T�����A�U���\�ȏꍇ�͍U���t���[�֑J�ڂ���
   private void UpdateEnemyUnitTarget() {
     target = null;
     float length = float.MaxValue;
     foreach(EnemyUnit unit in enemyUnitController.AlliveUnits()) {
-      if(unit.IsDead()) continue; // 死亡している敵は無視
+      if(unit.IsDead()) continue; // ���S���Ă���G�͖���
       float distance = Vector3.Distance(unit.transform.position, owner.transform.position);
       if(owner.IsAttackRange(distance)) {
-        // 攻撃範囲内なら攻撃フローへ
+        // �U���͈͓�Ȃ�U���t���[��
         Step((int)AllyUnitAct.Attack);
         return;
       }
-      // 攻撃範囲外だが索敵範囲内なら最も近い敵をターゲットにする
+      // �U���͈͊O�������G�͈͓�Ȃ�ł�߂��G��^�[�Q�b�g�ɂ���
       if(distance < length && owner.IsSearchRange(distance)) {
         length = distance;
         target = unit.gameObject;
@@ -27,43 +27,48 @@ public class AllayFlowMove :FlowBase {
     }
   }
 
-  // タワーをターゲットにする処理。敵ユニットがいない場合やターゲットが未設定の場合に実行
+  private bool IsTowerTarget() {
+    float range = Mathf.Abs(this.owner.transform.position.x - Tower.Instance().TowerPosition(1).x);
+    return range < 5;
+  }
+
   private void UpdateTowerTarget() {
-    if(target != null) return; // 既にターゲットがいれば何もしない
-    if(Tower.Instance() == null) return; // タワーが存在しなければ何もしない
-    target = Tower.Instance().SetTaret(1); // タワーをターゲットに設定
+    if(target != null) return;
+    if(Tower.Instance() == null) return;
+    if(!IsTowerTarget()) return;
+    target = Tower.Instance().SetTaret(1);
     float distance = Vector3.Distance(Tower.Instance().TowerPosition(1), owner.transform.position);
     if(owner.IsAttackRange(distance)) {
-      // タワーが攻撃範囲内なら攻撃フローへ
+      // �^���[���U���͈͓�Ȃ�U���t���[��
       Step((int)AllyUnitAct.Attack);
       return;
     }
   }
 
-  // 実際にユニットを移動させる処理
+  // ���ۂɃ��j�b�g��ړ������鏈��
   private void Move() {
     Vector3 direction = Vector3.zero;
-    if(target != null) direction = (target.transform.position - owner.transform.position).normalized; // ターゲット方向へ移動
-    else direction = new Vector3(1, 0, 0); // ターゲットがいなければ右方向へ直進
+    if(target != null) direction = (target.transform.position - owner.transform.position).normalized; // �^�[�Q�b�g�����ֈړ�
+    else direction = new Vector3(1, 0, 0); // �^�[�Q�b�g�����Ȃ���ΉE�����֒��i
     owner.transform.position += direction * owner.Status().Move() * Time.deltaTime;
   }
 
-  // 毎フレーム呼ばれる。状態やターゲットの更新、移動処理を行う
+  // ���t���[���Ă΂��B��Ԃ�^�[�Q�b�g�̍X�V�A�ړ�������s��
   private void Update() {
-    if(isStop) return; // 停止フラグが立っていれば何もしない
-    if(this.flowStatus.Value != (int)AllyUnitAct.CommonMove) return; // 移動状態でなければ何もしない
+    if(isStop) return; // ��~�t���O�������Ă���Ή�����Ȃ�
+    if(this.flowStatus.Value != (int)AllyUnitAct.CommonMove) return; // �ړ���ԂłȂ���Ή�����Ȃ�
     if(owner == null) {
-      // 初回のみ親オブジェクトからPlayerUnitを取得
+      // ����̂ݐe�I�u�W�F�N�g����PlayerUnit��擾
       owner = transform.parent.GetComponent<PlayerUnit>();
       return;
     }
     if(owner.IsDead()) {
-      // ユニットが死亡していれば死亡フローへ
+      // ���j�b�g�����S���Ă���Ύ��S�t���[��
       Step((int)AllyUnitAct.Dead);
       return;
     }
-    UpdateEnemyUnitTarget(); // 敵ユニットの探索・攻撃判定
-    UpdateTowerTarget();     // タワーの探索・攻撃判定
-    Move();                  // 実際の移動処理
+    UpdateEnemyUnitTarget(); // �G���j�b�g�̒T���E�U������
+    UpdateTowerTarget();     // �^���[�̒T���E�U������
+    Move();                  // ���ۂ̈ړ�����
   }
 }

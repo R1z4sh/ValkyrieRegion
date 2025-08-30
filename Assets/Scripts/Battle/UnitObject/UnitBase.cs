@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class UnitStatus {
   public UnitStatus(int cost, string unitName, int hp, int offense,
     float minAttackRange, float maxAttackRange, float attackCool,
-    float move, float attackTime, float searchRange) {
+    float move, float attackTime, float searchRange,
+    int action) {
     this.cost = cost;
     this.unitName = unitName;
     this.hp = hp;
@@ -15,17 +17,19 @@ public class UnitStatus {
     this.move = move;
     this.attackTime = attackTime;
     this.searchRange = searchRange;
+    this.action = action;
   }
   public int Cost() { return cost; }
   public string UnitName() { return unitName; }
   public int Hp() { return hp; }
   public int Offense() { return offense; }
-  public float MinAttackRange() { return minAttackRange; }
-  public float MaxAttackRange() { return maxAttackRange; }
+  public float MinAttackRange() { return minAttackRange / LocalDefines.SCALING; }
+  public float MaxAttackRange() { return maxAttackRange / LocalDefines.SCALING; }
   public float AttackCool() { return attackCool; }
-  public float Move() { return move; }
+  public float Move() { return move / LocalDefines.SCALING; }
   public float AttackTime() { return attackTime; }
-  public float SearchRange() { return searchRange; }
+  public float SearchRange() { return searchRange / LocalDefines.SCALING; }
+  public int Action() { return action; }
 
   public bool OnDamage(int damage) {
     hp -= damage;
@@ -41,6 +45,7 @@ public class UnitStatus {
   private float move;
   private float attackTime;
   private float searchRange;
+  private int action;
 }
 
 enum UnitActionStatus {
@@ -94,7 +99,8 @@ public class UnitBase :MonoBehaviour {
             data.attack_cool,
             data.move,
             data.attack_time,
-            data.search_range
+            data.search_range,
+            data.action
         );
     this.unitActionStatus = (int)UnitActionStatus.Move;
     this.fullHp = status.Hp();
