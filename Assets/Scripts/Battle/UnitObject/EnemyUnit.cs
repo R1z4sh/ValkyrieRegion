@@ -10,11 +10,22 @@ public class EnemyUnit :UnitBase {
     base.Initialize(playerUnitController, enemyUnitController, unitId, lv);
     string unitIdPath = string.Format("{0:D4}", unitId);
     unitImage.sprite = Resources.Load<Sprite>("Sprites/Battle/Unit/Enemy" + unitIdPath);
-    actionFlowController.To((int)EnemyUnitAct.CommonMove);
+    SetUpMove();
     rb = GetComponent<Rigidbody2D>();
     rb.freezeRotation = true;
   }
 
+  void SetUpMove() {
+    switch(status.Action()) {
+      case 0:
+      case 3:
+        actionFlowController.To((int)EnemyUnitAct.CommonMove);
+        break;
+      case 2:
+        actionFlowController.To((int)EnemyUnitAct.TowerMove);
+        break;
+    }
+  }
 
   protected override void OnDead() {
     EventManager.Trigger<EnemyUnit>("EnemyUnitDead", this);

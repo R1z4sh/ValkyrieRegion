@@ -1,10 +1,10 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class EnemyFlowMove :FlowBase {
+public class EnemyFlowTowerMove :FlowBase {
   private EnemyUnit owner = null;
 
-  private void UpdatePlayerUnitTarget() {
+  private void UpdateEnemyUnitTarget() {
+    target = null;
     float length = float.MaxValue;
     foreach(PlayerUnit unit in playerUnitcontoller.AlliveUnits()) {
       if(unit.IsDead()) continue;
@@ -20,17 +20,10 @@ public class EnemyFlowMove :FlowBase {
       }
     }
   }
-
-
-  private bool IsTowerTarget() {
-    float range = Mathf.Abs(this.owner.transform.position.x - Tower.Instance().TowerPosition(0).x);
-    return range < 5;
-  }
-
   private void UpdateTowerTarget() {
     if(target != null) return;
     if(Tower.Instance() == null) return;
-    if(!IsTowerTarget()) return;
+    target = Tower.Instance().SetTaret(0);
     float distance = Vector3.Distance(Tower.Instance().TowerPosition(0), owner.transform.position);
     if(owner.IsAttackRange(distance)) {
       Step((int)EnemyUnitAct.Attack);
@@ -39,15 +32,16 @@ public class EnemyFlowMove :FlowBase {
   }
 
   private void Move() {
-    if(Tower.Instance() == null) return;
-    Vector3 direction = (Tower.Instance().TowerPosition(0) - owner.transform.position).normalized;
+    Vector3 direction = Vector3.zero;
+    if(target != null) direction = (target.transform.position - owner.transform.position).normalized;
+    else direction = new Vector3(1, 0, 0);
     owner.transform.position += direction * owner.Status().Move() * Time.deltaTime;
   }
 
+
   private void Update() {
     if(isStop) return;
-    if(isStop) return;
-    if(this.flowStatus.Value != (int)EnemyUnitAct.CommonMove) return;
+    if(this.flowStatus.Value != (int)EnemyUnitAct.TowerMove) return;
     if(owner == null) {
       owner = transform.parent.GetComponent<EnemyUnit>();
       return;
@@ -56,8 +50,8 @@ public class EnemyFlowMove :FlowBase {
       Step((int)EnemyUnitAct.Dead);
       return;
     }
+    UpdateEnemyUnitTarget();
     UpdateTowerTarget();
-    UpdatePlayerUnitTarget();
     Move();
   }
 }
