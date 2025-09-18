@@ -23,7 +23,7 @@ public class EnemyFlowTowerMove :FlowBase {
   private void UpdateTowerTarget() {
     if(target != null) return;
     if(Tower.Instance() == null) return;
-    target = Tower.Instance().SetTaret(0);
+    target = Tower.Instance().SetTarget(0);
     float distance = Vector3.Distance(Tower.Instance().TowerPosition(0), owner.transform.position);
     if(owner.IsAttackRange(distance)) {
       Step((int)EnemyUnitAct.Attack);
