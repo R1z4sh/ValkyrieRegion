@@ -8,7 +8,8 @@ public enum MenuSceneBtnType
   Battle,
   Shop,
   Option,
-  Mission
+  Mission,
+  Enhance
 
 }
 
@@ -28,6 +29,7 @@ public class MenuScene :SceneBase {
     btnList[(int)MenuSceneBtnType.Option].onClick.AddListener(() => ShowPopup());
     btnList[(int)MenuSceneBtnType.Shop].onClick.AddListener(()=> ShowShop());
     btnList[(int)MenuSceneBtnType.Mission].onClick.AddListener(() => ShowMission());
+    btnList[(int)MenuSceneBtnType.Enhance].onClick.AddListener(() => ShowEnhance());
   }
 
   public override void Fainalize() { }
@@ -71,5 +73,20 @@ public class MenuScene :SceneBase {
 
     await PopupManager.Instance().ShowPopup<List<PopupMissionItemModel>, bool, PopupMissionView>(PopupName.PopupMission, list);
   }
+  /// <summary>
+  /// 強化リスト表示
+  /// </summary>
+  private async void ShowEnhance()
+  {
+    List<PopupEnhanceItemModel> list = new List<PopupEnhanceItemModel>();
+    //テストデータ
+    for (int i = 0; i < 30; i++)
+    {
+      var item = new PopupEnhanceItemModel();
+      item.InjectData(i + 1, $"item_{i + 1}");
+      list.Add(item);
+    }
 
+    await PopupManager.Instance().ShowPopup<List<PopupEnhanceItemModel>, bool, PopupEnhanceView>(PopupName.PopupEnhance, list);
+  }
 }

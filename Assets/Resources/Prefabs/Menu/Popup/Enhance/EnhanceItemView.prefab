@@ -221,9 +221,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6868684541083278469}
-  - component: {fileID: 8862003490542954703}
+  - component: {fileID: 8524239986898734693}
   m_Layer: 5
-  m_Name: shopItemView
+  m_Name: EnhanceItemView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,7 +249,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 290, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8862003490542954703
+--- !u!114 &8524239986898734693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5720773066070903435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b420ae53769bd9a488056a9042889c55, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ecf3fb394644a84baaedf255a1fcb1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 6388324502575669084}

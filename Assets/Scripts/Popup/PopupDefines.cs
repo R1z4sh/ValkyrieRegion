@@ -8,6 +8,7 @@ public enum PopupName {
   PopupGameOver,
   PopupShop,
   PopupMission,
+  PopupEnhance,
 }
 
 public class PopupDefines {
@@ -19,6 +20,7 @@ public class PopupDefines {
     { PopupName.PopupGameOver,"Prefabs/Battle/Popup/PopupGameOver"},
     { PopupName.PopupShop,"Prefabs/Menu/Popup/Shop/PopupShopView"},
     { PopupName.PopupMission,"Prefabs/Menu/Popup/Mission/PopupMissionView"},
+    { PopupName.PopupEnhance,"Prefabs/Menu/Popup/Enhance/PopupEnhanceView"},
   };
 
   public static string PopupPath(PopupName name) {
