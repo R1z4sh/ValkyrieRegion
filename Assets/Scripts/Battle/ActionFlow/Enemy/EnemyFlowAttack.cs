@@ -2,29 +2,30 @@ using System.Collections;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class EnemyFlowAttack :FlowBase {
+public class EnemyFlowAttack : FlowBase {
   private EnemyUnit owner = null;
   public float cool = 0;
   private bool attackTarget = false;
-  private PlayerUnit target = null;
   private bool isCountDown = true;
   private IEnumerator Attack() {
-    owner.AttackRangeActive(true);
-    isCountDown = false;
-    yield return new WaitForSeconds(owner.Status().AttackTime());
-    owner.AttackRangeActive(false);
+    //owner.AttackRangeActive(true);
     isCountDown = true;
+    yield return new WaitForSeconds(owner.Status().AttackTime());
+    //owner.AttackRangeActive(false);
+    isCountDown = false;
     this.cool = owner.Status().AttackCool();
-    if(target) target.OnDamage(owner.Status().Offense());
-    else Tower.Instance().OnDamage(0, owner.Status().Offense());
+    if (target)
+      target.GetComponent<PlayerUnit>().OnDamage(owner.Status().Offense());
+    else
+      Tower.Instance().OnDamage(0 , owner.Status().Offense());
   }
 
   private void UpdateUnitTarget() {
     target = null;
-    foreach(PlayerUnit unit in playerUnitcontoller.AlliveUnits()) {
-      float distance = Vector3.Distance(unit.transform.position, owner.transform.position);
-      if(owner.IsAttackRange(distance) && !unit.IsDead()) {
-        target = unit;
+    foreach (PlayerUnit unit in playerUnitcontoller.AlliveUnits()) {
+      float distance = Vector3.Distance(unit.transform.position , owner.transform.position);
+      if (owner.IsAttackRange(distance) && !unit.IsDead()) {
+        target = unit.gameObject;
       }
     }
     attackTarget = target != null;
@@ -32,34 +33,43 @@ public class EnemyFlowAttack :FlowBase {
 
   private void UpdateTowerTarget() {
     //NPC‚ð—Dæ
-    if(target != null) return;
+    if (target != null)
+      return;
     attackTarget = false;
-    if(Tower.Instance() == null) return;
-    float distance = Vector3.Distance(Tower.Instance().TowerPosition(0), owner.transform.position);
-    if(owner.IsAttackRange(distance)) {
+    if (Tower.Instance() == null)
+      return;
+    float distance = Vector3.Distance(Tower.Instance().TowerPosition(0) , owner.transform.position);
+    if (owner.IsAttackRange(distance)) {
       attackTarget = true;
     }
   }
 
   private void Update() {
-    if(isStop) return;
-    if(this.flowStatus.Value != (int)EnemyUnitAct.Attack) return;
+    if (isStop)
+      return;
+    if (this.flowStatus.Value != (int)EnemyUnitAct.Attack)
+      return;
 
-    if(owner == null) {
+    if (isCountDown)
+      cool = Mathf.Max(0 , cool - Time.deltaTime);
+    if (cool > 0 || !isCountDown)
+      return;
+
+    if (owner == null) {
       owner = transform.parent.GetComponent<EnemyUnit>();
       return;
     }
-    if(owner.IsDead()) Step((int)EnemyUnitAct.Dead);
+    if (owner.IsDead())
+      Step((int)EnemyUnitAct.Dead);
 
     UpdateUnitTarget();
     UpdateTowerTarget();
 
-    if(!attackTarget) {
+    if (!attackTarget) {
       Step((int)EnemyUnitAct.CommonMove);
       return;
     }
-    if(isCountDown) cool = Mathf.Max(0, cool - Time.deltaTime);
-    if(cool > 0 || !isCountDown) return;
+
     StartCoroutine(Attack());
   }
 }
