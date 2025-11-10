@@ -1,6 +1,9 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
+using System.Diagnostics;
+
 
 public class AllayFlowAttack : FlowBase {
   private PlayerUnit owner = null;
@@ -8,76 +11,52 @@ public class AllayFlowAttack : FlowBase {
   public float cool = 0;
   private bool isCountDown = true;
 
+  public override void Initialize(
+   ReactiveProperty<int> flowStatus ,
+   PlayerUnitController playerUnitcontoller ,
+   EnemyUnitController enemyUnitController ,
+   GameObject target = null) {
+    base.Initialize(flowStatus , playerUnitcontoller , enemyUnitController , target);
+    owner = gameObject.transform.parent.parent.GetComponent<PlayerUnit>();
+    Attack();
+  }
 
-  private IEnumerator Attack() {
+  private async Task Attack() {
     //owner.AttackRangeActive(true);
-    isCountDown = true;
-    yield return new WaitForSeconds(owner.Status().AttackTime());
-    isCountDown = false;
+
+    Stopwatch sw = new Stopwatch();
+    sw.Start();
+
+    await Task.Delay((int)(owner.Status().AttackTime()));
     //owner.AttackRangeActive(false);
-    this.cool = owner.Status().AttackCool();
-    if (target)
-      target.GetComponent<EnemyUnit>().OnDamage(owner.Status().Offense());
-    else {
-      Debug.Log("Enemy Tower OnDamage");
-      Tower.Instance().OnDamage(1 , owner.Status().Offense());
-    }
-  }
+    //this.cool = owner.Status().AttackCool();
 
-  private void UpdateUnitTarget() {
-    target = null;
-    foreach (EnemyUnit unit in enemyUnitController.AlliveUnits()) {
-      float distance = Vector3.Distance(unit.transform.position , owner.transform.position);
-      if (owner.IsAttackRange(distance) && !unit.IsDead()) {
-        target = unit.gameObject;
-      }
-    }
-    attackTarget = target != null;
-  }
+    TargetToUnit();
+    TargetToTower();
 
-  private void UpdateTowerTarget() {
-    //NPC‚ð—Dæ
-    if (target != null)
-      return;
-    attackTarget = false;
-    if (Tower.Instance() == null)
-      return;
-    float distance = Vector3.Distance(Tower.Instance().TowerPosition(1) , owner.transform.position);
-    Debug.Log("Distance:" + distance + ",attackRange:[" + owner.Status().MinAttackRange() + "," + owner.Status().MaxAttackRange() + "]");
-    if (owner.IsAttackRange(distance)) {
-      attackTarget = true;
-    }
-  }
+    await Task.Delay((int)owner.Status().AttackCool());
 
-  private void Update() {
-    if (isStop)
-      return;
+    sw.Stop();
+    UnityEngine.Debug.Log($"ˆ—ŽžŠÔ: {sw.ElapsedMilliseconds} ms");
 
-    if (this.flowStatus.Value != (int)AllyUnitAct.Attack)
-      return;
-
-    cool = Mathf.Max(0 , cool - Time.deltaTime);
-    if (cool > 0 || isCountDown)
-      return;
-
-    if (owner == null) {
-      owner = transform.parent.GetComponent<PlayerUnit>();
-      return;
-    }
-    if (owner.IsDead())
-      Step((int)AllyUnitAct.Dead);
-
-    UpdateUnitTarget();
-    UpdateTowerTarget();
-
-
-    if (!attackTarget) {
+    if (!target) {
       Step((int)AllyUnitAct.CommonMove);
-      Debug.Log("Ally Step Move");
       return;
     }
+    await Attack();
+  }
 
+  private void TargetToTower() {
+    EnemyTower tower = target.GetComponent<EnemyTower>();
+    if (!tower)
+      return;
+    tower.OnDamage(owner.Status().Offense());
+  }
 
-    StartCoroutine(Attack());
+  private void TargetToUnit() {
+    EnemyUnit enemy = target.GetComponent<EnemyUnit>();
+    if (!enemy)
+      return;
+    enemy.OnDamage(owner.Status().Offense());
   }
 }

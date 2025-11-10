@@ -1,11 +1,12 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class UnitStatus {
-  public UnitStatus(int cost, string unitName, int hp, int offense,
-    float minAttackRange, float maxAttackRange, float attackCool,
-    float move, float attackTime, float searchRange,
+  public UnitStatus(int cost , string unitName , int hp , int offense ,
+    float minAttackRange , float maxAttackRange , float attackCool ,
+    float move , float attackTime , float searchRange ,
     int action) {
     this.cost = cost;
     this.unitName = unitName;
@@ -55,10 +56,11 @@ enum UnitActionStatus {
   Dead = 4
 }
 
-public class UnitBase :MonoBehaviour {
+public class UnitBase : MonoBehaviour {
   [SerializeField] protected SpriteRenderer unitImage;
   [SerializeField] protected HealthBar healthGauge = null;
   [SerializeField] protected AttackRangeController attackRange = null;
+  [SerializeField] protected GameObject actRoot = null;
 
   protected UnitStatus status = null;
   protected int unitActionStatus = 0;
@@ -68,6 +70,9 @@ public class UnitBase :MonoBehaviour {
   protected UnitActionFlowController actionFlowController = null;
   protected int fullHp = 0;
 
+  public GameObject ActRoot() {
+    return actRoot;
+  }
 
   public void AttackRangeActive(bool flag) {
     this.attackRange.SetActive(flag);
@@ -81,39 +86,40 @@ public class UnitBase :MonoBehaviour {
   public bool IsSearchRange(float distance) { return status.SearchRange() >= distance; }
 
   public virtual void Initialize(
-    PlayerUnitController playerUnitController,
-    EnemyUnitController enemyUnitController,
-    int unitId, int lv) {
-    this.actionFlowController = new UnitActionFlowController(this, playerUnitController, enemyUnitController);
+    PlayerUnitController playerUnitController ,
+    EnemyUnitController enemyUnitController ,
+    int unitId , int lv) {
+    this.actionFlowController = new UnitActionFlowController(this , playerUnitController , enemyUnitController);
     this.playerUnitController = playerUnitController;
     this.enemyUnitController = enemyUnitController;
     UnitMaster unitMaster = MasterManager.unitMaster;
     UnitData data = unitMaster.GetUnitData(unitId);
     status = new UnitStatus(
-        data.cost,
-        data.unit_name,
-        StatusCalcurion.calcCommonItem(data.min_hp, data.max_hp, data.max_lv, lv),
-            StatusCalcurion.calcCommonItem(data.min_offense, data.max_offense, data.max_lv, lv),
-            data.min_attack_range,
-            data.max_attack_range,
-            data.attack_cool,
-            data.move,
-            data.attack_time,
-            data.search_range,
+        data.cost ,
+        data.unit_name ,
+        StatusCalcurion.calcCommonItem(data.min_hp , data.max_hp , data.max_lv , lv) ,
+            StatusCalcurion.calcCommonItem(data.min_offense , data.max_offense , data.max_lv , lv) ,
+            data.min_attack_range ,
+            data.max_attack_range ,
+            data.attack_cool ,
+            data.move ,
+            data.attack_time ,
+            data.search_range ,
             data.action
         );
     this.unitActionStatus = (int)UnitActionStatus.Move;
     this.fullHp = status.Hp();
     healthGauge.SetRate(1f);
-    attackRange.Initialize(status.MinAttackRange(), status.MaxAttackRange());
+    attackRange.Initialize(status.MinAttackRange() , status.MaxAttackRange());
   }
 
   public void OnDamage(int damage) {
-    if(status.OnDamage(damage)) OnDead();
+    if (status.OnDamage(damage))
+      OnDead();
     healthGauge.SetRate((float)status.Hp() / this.fullHp);
   }
 
-  protected virtual void OnDead() { }
+  protected virtual async Task OnDead() { }
 
   private void OnDestroy() {
     Destroy(transform.GetChild(0).gameObject);

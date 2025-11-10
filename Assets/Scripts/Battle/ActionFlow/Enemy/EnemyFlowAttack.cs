@@ -1,76 +1,55 @@
 using System.Collections;
+using System.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class EnemyFlowAttack : FlowBase {
   private EnemyUnit owner = null;
-  public float cool = 0;
-  private bool attackTarget = false;
-  private bool isCountDown = true;
-  private IEnumerator Attack() {
+
+
+  public override void Initialize(
+ ReactiveProperty<int> flowStatus ,
+ PlayerUnitController playerUnitcontoller ,
+ EnemyUnitController enemyUnitController ,
+ GameObject target = null) {
+    base.Initialize(flowStatus , playerUnitcontoller , enemyUnitController , target);
+    Attack();
+  }
+
+  private async Task Attack() {
     //owner.AttackRangeActive(true);
-    isCountDown = true;
-    yield return new WaitForSeconds(owner.Status().AttackTime());
+    //isCountDown = true;
+    await Task.Delay((int)(owner.Status().AttackTime()));
+    //isCountDown = false;
     //owner.AttackRangeActive(false);
-    isCountDown = false;
-    this.cool = owner.Status().AttackCool();
-    if (target)
-      target.GetComponent<PlayerUnit>().OnDamage(owner.Status().Offense());
-    else
-      Tower.Instance().OnDamage(0 , owner.Status().Offense());
+    //this.cool = owner.Status().AttackCool();
+
+    TargetToUnit();
+    TargetToTower();
+
+    await Task.Delay((int)owner.Status().AttackCool());
+
+    if (!target) {
+      Step((int)AllyUnitAct.CommonMove);
+      return;
+    }
+
+    Attack();
   }
 
-  private void UpdateUnitTarget() {
-    target = null;
-    foreach (PlayerUnit unit in playerUnitcontoller.AlliveUnits()) {
-      float distance = Vector3.Distance(unit.transform.position , owner.transform.position);
-      if (owner.IsAttackRange(distance) && !unit.IsDead()) {
-        target = unit.gameObject;
-      }
-    }
-    attackTarget = target != null;
+  private void TargetToTower() {
+    AllyTower tower = target.GetComponent<AllyTower>();
+    if (!tower)
+      return;
+    tower.OnDamage(owner.Status().Offense());
   }
 
-  private void UpdateTowerTarget() {
-    //NPCÇóDêÊ
-    if (target != null)
+  private void TargetToUnit() {
+    PlayerUnit playerUnit = target.GetComponent<PlayerUnit>();
+    if (!playerUnit)
       return;
-    attackTarget = false;
-    if (Tower.Instance() == null)
-      return;
-    float distance = Vector3.Distance(Tower.Instance().TowerPosition(0) , owner.transform.position);
-    if (owner.IsAttackRange(distance)) {
-      attackTarget = true;
-    }
-  }
-
-  private void Update() {
-    if (isStop)
-      return;
-    if (this.flowStatus.Value != (int)EnemyUnitAct.Attack)
-      return;
-
-    if (isCountDown)
-      cool = Mathf.Max(0 , cool - Time.deltaTime);
-    if (cool > 0 || !isCountDown)
-      return;
-
-    if (owner == null) {
-      owner = transform.parent.GetComponent<EnemyUnit>();
-      return;
-    }
-    if (owner.IsDead())
-      Step((int)EnemyUnitAct.Dead);
-
-    UpdateUnitTarget();
-    UpdateTowerTarget();
-
-    if (!attackTarget) {
-      Step((int)EnemyUnitAct.CommonMove);
-      return;
-    }
-
-    StartCoroutine(Attack());
+    playerUnit.OnDamage(owner.Status().Offense());
   }
 }
 

@@ -19,6 +19,7 @@ public class FlowBase : MonoBehaviour {
     EventManager.Subscribe<bool>("gameStop" , Stop);
   }
 
+
   private void Stop(bool flag) {
     isStop = flag;
   }
@@ -27,6 +28,10 @@ public class FlowBase : MonoBehaviour {
 
   public void Remove() {
     Destroy(this.gameObject);
+  }
+
+  public virtual void Detach() {
+
   }
 
   public virtual void Step(int act) { this.flowStatus.Value = act; }

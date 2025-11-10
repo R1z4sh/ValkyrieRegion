@@ -141,6 +141,7 @@ MonoBehaviour:
   unitImage: {fileID: 4914681959617104387}
   healthGauge: {fileID: 7117777735106051143}
   attackRange: {fileID: 8696432762456055387}
+  actRoot: {fileID: 5828966978030466524}
 --- !u!212 &4914681959617104387
 SpriteRenderer:
   m_ObjectHideFlags: 0
