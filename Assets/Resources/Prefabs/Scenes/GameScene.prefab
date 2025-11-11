@@ -797,6 +797,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1252499471992862569}
     m_Modifications:
+    - target: {fileID: 1491571276853276494, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1491571276853276494, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2542118548964836973, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -901,9 +909,21 @@ PrefabInstance:
       propertyPath: m_Maskable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7408373561010637683, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 320
+      objectReference: {fileID: 0}
     - target: {fileID: 8514886005141978263, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
       propertyPath: m_Name
       value: BattleUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572580903599754386, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 297.7877
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572580903599754386, guid: a92ec5f1814512e47a3143af6acb6b17, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000015258789
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -945,6 +965,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5623320414736278313}
     m_Modifications:
+    - target: {fileID: 1264212864548684017, guid: a18c018256dc1e94cbc494de9ca8f1b3, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2256222795758602771, guid: a18c018256dc1e94cbc494de9ca8f1b3, type: 3}
       propertyPath: m_Name
       value: Leader
@@ -1018,6 +1042,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5623320414736278313}
     m_Modifications:
+    - target: {fileID: 1380948246618301274, guid: 49242688ebab80340b7fe5c0c3982e5a, type: 3}
+      propertyPath: allyTower
+      value: 
+      objectReference: {fileID: 5075344088245085837}
     - target: {fileID: 1620632068189571608, guid: 49242688ebab80340b7fe5c0c3982e5a, type: 3}
       propertyPath: rateGauge
       value: 
@@ -1091,6 +1119,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49242688ebab80340b7fe5c0c3982e5a, type: 3}
+--- !u!114 &5075344088245085837 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8008951438593020795, guid: 49242688ebab80340b7fe5c0c3982e5a, type: 3}
+  m_PrefabInstance: {fileID: 2975397661446436342}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f7352f15beb4048b13af2e1d7f5b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7031155256605135689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5249246754873484991, guid: 49242688ebab80340b7fe5c0c3982e5a, type: 3}

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class AllayTower :MonoBehaviour {
+public class AllyTower : MonoBehaviour {
   [SerializeField] private HealthBar healthGauge = null;
   private int hp = 1000;
 
@@ -19,8 +19,9 @@ public class AllayTower :MonoBehaviour {
 
   public bool OnDamage(int damage) {
     hp -= damage;
-    if(hp <= 0) {
+    if (hp <= 0) {
       healthGauge.SetRate(0f);
+      EventManager.Trigger<bool>("gameOver" , true);
       return true;
     }
     healthGauge.SetRate((float)hp / 1000f);
