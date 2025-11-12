@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934a77baca3002e4fb98eee8a7b56825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allayTower: {fileID: 8008951438593020795}
+  allyTower: {fileID: 0}
   enemyTower: {fileID: 7835850926723015596}
 --- !u!1 &4621240865136026445
 GameObject:
@@ -586,6 +586,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1987148788962485657}
     m_Modifications:
+    - target: {fileID: 2484049530154672823, guid: 8b093c7453414ec4cb8fa5906764855e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8072939
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484049530154672823, guid: 8b093c7453414ec4cb8fa5906764855e, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484049530154672823, guid: 8b093c7453414ec4cb8fa5906764855e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3029435382154353006, guid: 8b093c7453414ec4cb8fa5906764855e, type: 3}
       propertyPath: m_Name
       value: HpBar
@@ -659,6 +671,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3792269020990510812}
     m_Modifications:
+    - target: {fileID: 2484049530154672823, guid: 8b093c7453414ec4cb8fa5906764855e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.908308
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484049530154672823, guid: 8b093c7453414ec4cb8fa5906764855e, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484049530154672823, guid: 8b093c7453414ec4cb8fa5906764855e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3029435382154353006, guid: 8b093c7453414ec4cb8fa5906764855e, type: 3}
       propertyPath: m_Name
       value: HpBar

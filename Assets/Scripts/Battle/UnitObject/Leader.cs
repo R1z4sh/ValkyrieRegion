@@ -43,7 +43,7 @@ public class Leader : MonoBehaviour {
     //左スティックでの横移動
     this.transform.position += this.transform.right * joystick.Horizontal * moveSpeed * Time.deltaTime;
     Vector3 pos = this.transform.position;
-    this.transform.position = new Vector3(Math.Clamp(pos.x , 10 , moveRange.x - 10) , Math.Clamp(pos.y , -moveRange.y / 2 + 10 , moveRange.y / 2 - 10) , 0);
+    //this.transform.position = new Vector3(Math.Clamp(pos.x , 10 , moveRange.x - 10) , Math.Clamp(pos.y , -moveRange.y / 2 + 10 , moveRange.y / 2 - 10) , 0);
   }
 
   private void SetDirection() {

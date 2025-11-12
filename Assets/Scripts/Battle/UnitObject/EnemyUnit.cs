@@ -29,7 +29,7 @@ public class EnemyUnit : UnitBase {
   }
 
   protected override async Task OnDead() {
-    EventManager.Trigger<EnemyUnit>("PlayerUnitDead" , this);
+    EventManager.Trigger<EnemyUnit>("enemyUnitDead" , this);
     actionFlowController.Dead();
     //アニメーション待機
     await Task.Delay(1);

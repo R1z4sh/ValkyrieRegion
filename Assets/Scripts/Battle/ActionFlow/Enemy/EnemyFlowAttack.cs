@@ -9,29 +9,25 @@ public class EnemyFlowAttack : FlowBase {
 
 
   public override void Initialize(
- ReactiveProperty<int> flowStatus ,
- PlayerUnitController playerUnitcontoller ,
- EnemyUnitController enemyUnitController ,
- GameObject target = null) {
+  ReactiveProperty<int> flowStatus ,
+  PlayerUnitController playerUnitcontoller ,
+  EnemyUnitController enemyUnitController ,
+  GameObject target = null) {
     base.Initialize(flowStatus , playerUnitcontoller , enemyUnitController , target);
+    owner = gameObject.transform.parent.parent.GetComponent<EnemyUnit>();
     Attack();
   }
 
   private async Task Attack() {
-    //owner.AttackRangeActive(true);
-    //isCountDown = true;
-    await Task.Delay((int)(owner.Status().AttackTime()));
-    //isCountDown = false;
-    //owner.AttackRangeActive(false);
-    //this.cool = owner.Status().AttackCool();
+    await Task.Delay((int)(owner.Status().AttackTime() * 1000f));
 
     TargetToUnit();
     TargetToTower();
 
-    await Task.Delay((int)owner.Status().AttackCool());
+    await Task.Delay((int)(owner.Status().AttackCool() * 1000f));
 
     if (!target) {
-      Step((int)AllyUnitAct.CommonMove);
+      Step((int)EnemyUnitAct.CommonMove);
       return;
     }
 
@@ -43,13 +39,17 @@ public class EnemyFlowAttack : FlowBase {
     if (!tower)
       return;
     tower.OnDamage(owner.Status().Offense());
+
   }
 
   private void TargetToUnit() {
     PlayerUnit playerUnit = target.GetComponent<PlayerUnit>();
     if (!playerUnit)
       return;
-    playerUnit.OnDamage(owner.Status().Offense());
+    bool isDead = playerUnit.OnDamage(owner.Status().Offense());
+    if (isDead)
+      target = null;
+
   }
 }
 

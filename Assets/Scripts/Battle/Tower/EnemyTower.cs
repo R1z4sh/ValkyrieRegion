@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyTower :MonoBehaviour {
+public class EnemyTower : MonoBehaviour {
   [SerializeField] private HealthBar healthGauge = null;
   private int hp = 1000;
 
@@ -19,8 +19,12 @@ public class EnemyTower :MonoBehaviour {
 
   public bool OnDamage(int damage) {
     hp -= damage;
-    if(hp <= 0) {
+    Debug.Log("Damage" + damage);
+    Debug.Log("Health" + hp);
+    if (hp <= 0) {
       healthGauge.SetRate(0f);
+      EventManager.Trigger<bool>("gameClear" , true);
+
       return true;
     }
     healthGauge.SetRate((float)hp / 1000f);

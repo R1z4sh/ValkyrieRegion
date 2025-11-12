@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameTimer :MonoBehaviour {
+public class GameTimer : MonoBehaviour {
   [SerializeField] private Text timerCount;
   private float timer = 0f;
 
@@ -20,45 +20,47 @@ public class GameTimer :MonoBehaviour {
     enemySpawn = MasterManager.enemySpawnMaster;
     spawnList = enemySpawn.GetSpawnList(stageId);
     Schedule();
-    EventManager.Subscribe<bool>("gameStop", Stop);
+    EventManager.Subscribe<bool>("gameStop" , Stop);
   }
 
   private void Schedule() {
-    foreach(SpawnData data in spawnList) {
-      StartCoroutine(SpawnTrigger(data, (float)data.time));
+    foreach (SpawnData data in spawnList) {
+      StartCoroutine(SpawnTrigger(data , (float)data.time));
     }
   }
 
   private void Update() {
-    if(isStop) return;
+    if (isStop)
+      return;
     timer += Time.deltaTime;
     SetTimrCount();
   }
 
-  private IEnumerator SpawnTrigger(SpawnData data, float delay) {
+  private IEnumerator SpawnTrigger(SpawnData data , float delay) {
     float elapsed = 0f;
-    while(elapsed < delay) {
-      if(!isStop) {
+    while (elapsed < delay) {
+      if (!isStop) {
         elapsed += Time.deltaTime;
       }
       yield return null;
     }
 
-    for(int i = 0; i < data.count; ++i) {
-      EventManager.Trigger("enemyPop", data);
+    for (int i = 0; i < data.count; ++i) {
+      EventManager.Trigger("enemyPop" , data);
+      Debug.Log("PopupCall");
     }
   }
 
   private void SetTimrCount() {
     int seconds = Mathf.FloorToInt(timer % 60);
     int minutes = Mathf.FloorToInt((timer / 60) % 60);
-    timerCount.text = string.Format("{0:D2}:{1:D2}", minutes, seconds);
+    timerCount.text = string.Format("{0:D2}:{1:D2}" , minutes , seconds);
   }
 
   private void OnDestroy() {
-    EventManager.Unsubscribe<bool>("gameStop", Stop);
-    foreach(SpawnData data in spawnList) {
-      if(data != null) {
+    EventManager.Unsubscribe<bool>("gameStop" , Stop);
+    foreach (SpawnData data in spawnList) {
+      if (data != null) {
         StopAllCoroutines();
       }
     }
