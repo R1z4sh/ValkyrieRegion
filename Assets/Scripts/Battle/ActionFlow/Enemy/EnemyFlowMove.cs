@@ -59,18 +59,14 @@ public class EnemyFlowMove : FlowBase {
   private void Update() {
     if (isStop)
       return;
-    if (isStop)
-      return;
+
     if (this.flowStatus.Value != (int)EnemyUnitAct.CommonMove)
       return;
     if (owner == null) {
       owner = transform.parent.GetComponent<EnemyUnit>();
       return;
     }
-    if (owner.IsDead()) {
-      Step((int)EnemyUnitAct.Dead);
-      return;
-    }
+
     UpdatePlayerUnitTarget();
     UpdateTowerTarget();
     Move();

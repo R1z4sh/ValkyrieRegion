@@ -1,42 +1,62 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Rendering;
+using System.Diagnostics;
 
-public class AllayFlowAttack :FlowBase {
+
+public class AllayFlowAttack : FlowBase {
   private PlayerUnit owner = null;
+  private bool attackTarget = false;
   public float cool = 0;
   private bool isCountDown = true;
 
-  private IEnumerator Attack() {
-    isCountDown = false;
-    owner.AttackRangeActive(true);
-    yield return new WaitForSeconds(owner.Status().AttackTime());
-    owner.AttackRangeActive(false);
-    isCountDown = true;
-    this.cool = owner.Status().AttackCool();
-
-    EnemyUnit targetUnit = target.GetComponent<EnemyUnit>();
-    Tower targetTower = target.GetComponent<Tower>();
+  public override void Initialize(
+   ReactiveProperty<int> flowStatus ,
+   PlayerUnitController playerUnitcontoller ,
+   EnemyUnitController enemyUnitController ,
+   GameObject target = null) {
+    base.Initialize(flowStatus , playerUnitcontoller , enemyUnitController , target);
+    owner = gameObject.transform.parent.parent.GetComponent<PlayerUnit>();
+    Attack();
   }
 
+  private async Task Attack() {
+    //owner.AttackRangeActive(true);
 
-  private void Update() {
-    if(isStop) return;
-    if(!target) {
+    Stopwatch sw = new Stopwatch();
+    sw.Start();
+
+    await Task.Delay((int)(owner.Status().AttackTime()));
+    //owner.AttackRangeActive(false);
+    //this.cool = owner.Status().AttackCool();
+
+    TargetToUnit();
+    TargetToTower();
+
+    await Task.Delay((int)owner.Status().AttackCool());
+
+    sw.Stop();
+    UnityEngine.Debug.Log($"èàóùéûä‘: {sw.ElapsedMilliseconds} ms");
+
+    if (!target) {
       Step((int)AllyUnitAct.CommonMove);
       return;
     }
-    if(this.flowStatus.Value != (int)AllyUnitAct.Attack) return;
-    if(owner == null) {
-      owner = transform.parent.GetComponent<PlayerUnit>();
-      return;
-    }
-    if(owner.IsDead()) Step((int)AllyUnitAct.Dead);
+    await Attack();
+  }
 
-    if(isCountDown) cool = Mathf.Max(0, cool - Time.deltaTime);
-    if(cool > 0 || !isCountDown) return;
-    Debug.Log("AllayOnAttack");
-    StartCoroutine(Attack());
+  private void TargetToTower() {
+    EnemyTower tower = target.GetComponent<EnemyTower>();
+    if (!tower)
+      return;
+    tower.OnDamage(owner.Status().Offense());
+  }
+
+  private void TargetToUnit() {
+    EnemyUnit enemy = target.GetComponent<EnemyUnit>();
+    if (!enemy)
+      return;
+    enemy.OnDamage(owner.Status().Offense());
   }
 }

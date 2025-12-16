@@ -3,15 +3,25 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 public class AllayFlowMove : FlowBase {
-  private PlayerUnit owner = null;
+  public PlayerUnit owner = null;
 
-  // �G���j�b�g��T�����A�U���\�ȏꍇ�͍U���t���[�֑J�ڂ���
+  public override void Initialize(
+ ReactiveProperty<int> flowStatus ,
+ PlayerUnitController playerUnitcontoller ,
+ EnemyUnitController enemyUnitController ,
+ GameObject target = null) {
+    base.Initialize(flowStatus , playerUnitcontoller , enemyUnitController , target);
+    owner = gameObject.transform.parent.parent.GetComponent<PlayerUnit>();
+  }
+
   private void UpdateEnemyUnitTarget() {
     target = null;
     float length = float.MaxValue;
     foreach (EnemyUnit unit in enemyUnitController.AlliveUnits()) {
       if (unit.IsDead())
         continue;
+      if (owner == null)
+        return;
       float distance = Vector3.Distance(unit.transform.position , owner.transform.position);
       if (owner.IsAttackRange(distance)) {
         Step((int)AllyUnitAct.Attack);
@@ -35,11 +45,13 @@ public class AllayFlowMove : FlowBase {
       return;
     if (Tower.Instance() == null)
       return;
-    if (!IsTowerTarget())
-      return;
-    target = Tower.Instance().SetTarget(1);
+    //if (!IsTowerTarget())
+    //  return;
+
     float distance = Vector3.Distance(Tower.Instance().TowerPosition(1) , owner.transform.position);
     if (owner.IsAttackRange(distance)) {
+      Debug.Log("Ally Step Attack");
+      target = Tower.Instance().SetTarget(1);
       Step((int)AllyUnitAct.Attack);
       return;
     }
@@ -52,7 +64,7 @@ public class AllayFlowMove : FlowBase {
       direction = (target.transform.position - owner.transform.position).normalized;
     else
       direction = new Vector3(1 , 0 , 0);
-    owner.transform.position += direction * owner.Status().Move() * Time.deltaTime;
+    owner.gameObject.transform.position += direction * owner.Status().Move() * Time.deltaTime;
   }
 
   // ���t���[���Ă΂��B��Ԃ�^�[�Q�b�g�̍X�V�A�ړ�������s��
@@ -61,16 +73,9 @@ public class AllayFlowMove : FlowBase {
       return;
     if (this.flowStatus.Value != (int)AllyUnitAct.CommonMove)
       return;
-    if (owner == null) {
-      owner = transform.parent.GetComponent<PlayerUnit>();
-      return;
-    }
-    if (owner.IsDead()) {
-      Step((int)AllyUnitAct.Dead);
-      return;
-    }
-    UpdateEnemyUnitTarget(); // �G���j�b�g�̒T���E�U������
-    UpdateTowerTarget();     // �^���[�̒T���E�U������
-    Move();                  // ���ۂ̈ړ�����
+
+    UpdateEnemyUnitTarget();
+    UpdateTowerTarget();
+    Move();
   }
 }
