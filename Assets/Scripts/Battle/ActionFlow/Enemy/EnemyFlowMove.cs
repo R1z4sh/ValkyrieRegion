@@ -1,10 +1,19 @@
+using UniRx;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EnemyFlowMove : FlowBase {
   private EnemyUnit owner = null;
 
-  // �v���C���[���j�b�g��T�����A�U���\�ȏꍇ�͍U���t���[�֑J�ڂ���
+  public override void Initialize(
+    ReactiveProperty<int> flowStatus ,
+    PlayerUnitController playerUnitcontoller ,
+    EnemyUnitController enemyUnitController ,
+    GameObject target = null) {
+    base.Initialize(flowStatus , playerUnitcontoller , enemyUnitController , target);
+    owner = gameObject.transform.parent.parent.GetComponent<EnemyUnit>();
+  }
+
   private void UpdatePlayerUnitTarget() {
     float length = float.MaxValue;
     foreach (PlayerUnit unit in playerUnitcontoller.AlliveUnits()) {

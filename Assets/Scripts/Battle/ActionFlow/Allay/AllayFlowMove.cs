@@ -24,6 +24,7 @@ public class AllayFlowMove : FlowBase {
         return;
       float distance = Vector3.Distance(unit.transform.position , owner.transform.position);
       if (owner.IsAttackRange(distance)) {
+        target = unit.gameObject;
         Step((int)AllyUnitAct.Attack);
         return;
       }
@@ -45,8 +46,8 @@ public class AllayFlowMove : FlowBase {
       return;
     if (Tower.Instance() == null)
       return;
-    //if (!IsTowerTarget())
-    //  return;
+    if (!IsTowerTarget())
+      return;
 
     float distance = Vector3.Distance(Tower.Instance().TowerPosition(1) , owner.transform.position);
     if (owner.IsAttackRange(distance)) {

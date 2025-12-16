@@ -113,10 +113,13 @@ public class UnitBase : MonoBehaviour {
     attackRange.Initialize(status.MinAttackRange() , status.MaxAttackRange());
   }
 
-  public void OnDamage(int damage) {
-    if (status.OnDamage(damage))
+  public bool OnDamage(int damage) {
+    if (status.OnDamage(damage)) {
       OnDead();
+      return true;
+    }
     healthGauge.SetRate((float)status.Hp() / this.fullHp);
+    return false;
   }
 
   protected virtual async Task OnDead() { }

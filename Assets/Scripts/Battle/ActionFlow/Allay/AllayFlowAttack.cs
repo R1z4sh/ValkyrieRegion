@@ -2,14 +2,10 @@ using System.Collections;
 using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
-using System.Diagnostics;
 
 
 public class AllayFlowAttack : FlowBase {
   private PlayerUnit owner = null;
-  private bool attackTarget = false;
-  public float cool = 0;
-  private bool isCountDown = true;
 
   public override void Initialize(
    ReactiveProperty<int> flowStatus ,
@@ -22,28 +18,18 @@ public class AllayFlowAttack : FlowBase {
   }
 
   private async Task Attack() {
-    //owner.AttackRangeActive(true);
-
-    Stopwatch sw = new Stopwatch();
-    sw.Start();
-
-    await Task.Delay((int)(owner.Status().AttackTime()));
-    //owner.AttackRangeActive(false);
-    //this.cool = owner.Status().AttackCool();
+    await Task.Delay((int)(owner.Status().AttackTime() * 1000f));
 
     TargetToUnit();
     TargetToTower();
 
-    await Task.Delay((int)owner.Status().AttackCool());
-
-    sw.Stop();
-    UnityEngine.Debug.Log($"èàóùéûä‘: {sw.ElapsedMilliseconds} ms");
+    await Task.Delay((int)(owner.Status().AttackCool() * 1000f));
 
     if (!target) {
       Step((int)AllyUnitAct.CommonMove);
       return;
     }
-    await Attack();
+    Attack();
   }
 
   private void TargetToTower() {
@@ -55,8 +41,12 @@ public class AllayFlowAttack : FlowBase {
 
   private void TargetToUnit() {
     EnemyUnit enemy = target.GetComponent<EnemyUnit>();
-    if (!enemy)
+    if (!enemy) {
+      Debug.Log("Enemy NotFound");
       return;
-    enemy.OnDamage(owner.Status().Offense());
+    }
+    bool isDead = enemy.OnDamage(owner.Status().Offense());
+    if (isDead)
+      target = null;
   }
 }

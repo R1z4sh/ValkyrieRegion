@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 
 public class AllayFlowTowerMove : FlowBase {
   public PlayerUnit owner = null;
+
   public override void Initialize(
     ReactiveProperty<int> flowStatus ,
     PlayerUnitController playerUnitcontoller ,
@@ -12,7 +13,6 @@ public class AllayFlowTowerMove : FlowBase {
     base.Initialize(flowStatus , playerUnitcontoller , enemyUnitController , target);
     owner = gameObject.transform.parent.parent.GetComponent<PlayerUnit>();
   }
-
 
   private void UpdateEnemyUnitTarget() {
     target = null;
